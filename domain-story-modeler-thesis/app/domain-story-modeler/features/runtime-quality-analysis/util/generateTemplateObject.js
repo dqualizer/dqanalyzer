@@ -43,7 +43,9 @@ const pushToQueue = () => {
 
     };
 
-    fetch('http://localhost:8070/api/rqa', requestOptions)
+    const { BACKEND_URL } = process.env;
+
+    fetch(`${BACKEND_URL}`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
