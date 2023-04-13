@@ -45,6 +45,9 @@ const pushToQueue = () => {
 
     const { BACKEND_URL } = process.env;
 
+    console.table(process.env)
+    console.log(`BACKEND_URL=${BACKEND_URL}`)
+
     fetch(`${BACKEND_URL}`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
