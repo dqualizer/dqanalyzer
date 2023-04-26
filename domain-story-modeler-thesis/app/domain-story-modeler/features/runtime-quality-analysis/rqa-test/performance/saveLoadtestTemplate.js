@@ -227,8 +227,7 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
       console.log('Please give the node a proper name that matches the architectural mapping!');
       return;
     }
-
-    console.log(resultMetrics);
+    ;
 
     const newLoadTestTemplateObj = new LoadTestTemplate(
       artifact,
@@ -238,9 +237,6 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
       responseMeasure,
       result_metrics
     );
-
-    console.log(newLoadTestTemplateObj);
-
 
     setupTemplateObject(newLoadTestTemplateObj, 'LOADTEST');
 
