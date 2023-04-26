@@ -18,7 +18,7 @@ describe('position', function() {
       x: 30,
       y: 20
     };
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
 
     let angleActivity = [];
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity
@@ -61,7 +61,7 @@ describe('position', function() {
       y: 30
     };
 
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
 
     let angleActivity = [];
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity
@@ -104,7 +104,7 @@ describe('position', function() {
       y: 15
     };
 
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
 
     let angleActivity = [];
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity

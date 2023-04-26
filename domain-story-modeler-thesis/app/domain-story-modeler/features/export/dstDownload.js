@@ -13,7 +13,7 @@ let infoText = document.getElementById('infoText');
 export function downloadDST(filename, text) {
 
   let configAndDST = createConfigAndDst(text);
-  let json =JSON.stringify(configAndDST);
+  let json = JSON.stringify(configAndDST);
   let element = document.createElement('a');
 
   filename = sanitizeForDesktop(filename);
@@ -72,10 +72,10 @@ export function createConfigAndDst(text) {
   let actors = iconConfig.actors;
   let workObjects = iconConfig.workObjects;
 
-  if (!actors.size>0) {
+  if (!actors.size > 0) {
     actors = getTypeDictionary(ACTOR);
   }
-  if (!workObjects.size>0) {
+  if (!workObjects.size > 0) {
     workObjects = getTypeDictionary(WORKOBJECT);
   }
 

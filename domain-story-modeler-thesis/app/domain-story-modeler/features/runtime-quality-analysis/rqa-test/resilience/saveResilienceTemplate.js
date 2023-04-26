@@ -193,10 +193,10 @@ export const saveResilienceTemplate = (selectedID) => {
             }
         }
 
-        let responseMeasureType;
+        let _responseMeasureType;
         switch (getStimulus) {
             case 'Unavailable':
-                responseMeasureType = 'Recovery time';
+                _responseMeasureType = 'Recovery time';
 
                 if (getRecoveryTime__satisfiedBtn.classList.contains('active')) {
                     responseMeasureObject = getRecoveryTime__satisfiedBtn.textContent;
@@ -211,7 +211,7 @@ export const saveResilienceTemplate = (selectedID) => {
                 break;
 
             case 'Failed request':
-                responseMeasureType = 'Error rate';
+                _responseMeasureType = 'Error rate';
 
                 if (getErrorRates__noneBtn.classList.contains('active')) {
                     responseMeasureObject = getErrorRates__noneBtn.textContent;
@@ -229,7 +229,7 @@ export const saveResilienceTemplate = (selectedID) => {
                 break;
 
             case 'Late response':
-                responseMeasureType = 'Response time';
+                _responseMeasureType = 'Response time';
 
                 if (getResponseTime__satisfiedBtn.classList.contains('active')) {
                     responseMeasureObject = getResponseTime__satisfiedBtn.textContent;

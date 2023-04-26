@@ -35,7 +35,7 @@ describe('domainStory modeling', function() {
         height: 100,
         width: 100
       };
-      bpmnjs.addCustomElements([customShape]);
+      bpmnjs.addCustomElements([ customShape ]);
     }));
 
 
@@ -55,7 +55,7 @@ describe('domainStory modeling', function() {
           width: 100
         };
 
-        const businessObject={
+        const businessObject = {
           type: 'domainStory:actorPerson',
           id: 'CustomActor_1',
           x: 150,
@@ -121,7 +121,7 @@ describe('domainStory modeling', function() {
         y: 300
       };
 
-      bpmnjs.addCustomElements([customShape]);
+      bpmnjs.addCustomElements([ customShape ]);
     }));
 
 
@@ -178,12 +178,12 @@ describe('domainStory modeling', function() {
         type: CONNECTION
       });
 
-      bpmnjs.addCustomElements([{
+      bpmnjs.addCustomElements([ {
         type: 'doaminStory:actor',
         id: 'CustomCircle_1',
         x: 200,
         y: 300
-      }]);
+      } ]);
 
       const customCircle = elementRegistry.get('CustomCircle_1');
 

@@ -9,6 +9,6 @@ export default {
   __init__: [
     'paletteProvider',
   ],
-  elementFactoryBpmn: ['type', ElementFactory],
-  modeling : ['type', DSModeling]
+  elementFactoryBpmn: [ 'type', ElementFactory ],
+  modeling : [ 'type', DSModeling ]
 };

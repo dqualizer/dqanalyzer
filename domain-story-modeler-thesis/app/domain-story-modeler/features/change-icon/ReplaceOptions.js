@@ -9,12 +9,12 @@ export function actorReplaceOptions(name) {
   const actorTypes = getTypeDictionary(ACTOR);
 
   let replaceOption = {};
-  let i=0;
+  let i = 0;
 
   actorTypes.keysArray().forEach(actorType => {
     if (!name.includes(actorType)) {
       const typeName = getNameFromType(actorType);
-      replaceOption[i] ={
+      replaceOption[i] = {
         label: 'Change to ' + typeName,
         actionName: 'replace-with-actor-' + typeName.toLowerCase(),
         className: getIconForType(actorType),
@@ -32,7 +32,7 @@ export function workObjectReplaceOptions(name) {
   const workObjectTypes = getTypeDictionary(WORKOBJECT);
 
   let replaceOption = {};
-  let i=0;
+  let i = 0;
 
   workObjectTypes.keysArray().forEach(workObjectType => {
     if (!name.includes(workObjectType)) {

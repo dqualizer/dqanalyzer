@@ -2,7 +2,7 @@
 
 import Modeling from 'bpmn-js/lib/features/modeling/Modeling';
 
-import { inherits } from 'util';
+import inherits from 'inherits-ex';
 
 export default function DSModeling(eventBus, elementFactory, commandStack,
     domainStoryRules) {

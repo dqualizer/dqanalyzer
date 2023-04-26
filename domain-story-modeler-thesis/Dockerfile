@@ -10,6 +10,7 @@ COPY . .
 
 RUN npm run bundle
 
+# CMD [ "npm", "start" ]
 
 # Runtime stage
 FROM nginx:1.22-alpine

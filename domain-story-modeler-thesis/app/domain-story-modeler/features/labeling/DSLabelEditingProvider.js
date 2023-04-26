@@ -72,7 +72,7 @@ export default function DSLabelEditingProvider(
   });
 
   // cancel on command stack changes
-  eventBus.on(['commandStack.changed'], function() {
+  eventBus.on([ 'commandStack.changed' ], function() {
     if (directEditing.isActive()) {
       directEditing.cancel();
     }
@@ -112,7 +112,7 @@ export default function DSLabelEditingProvider(
 
   function activateDirectEdit(element, force) {
     if (force ||
-      isAny(element, [TEXTANNOTATION]) ||
+      isAny(element, [ TEXTANNOTATION ]) ||
       isDomainStoryElement(element)) {
 
       directEditing.activate(element);

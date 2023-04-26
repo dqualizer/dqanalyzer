@@ -1,6 +1,6 @@
 'use strict';
 
-import inherits from 'inherits';
+import inherits from 'inherits-browser';
 
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
@@ -146,7 +146,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
       if (angle === 0 || angle === 180) {
         boxWidth = Math.abs(startPoint.x - endPoint.x);
         alignment = 'center';
-        xStart = (startPoint.x + endPoint.x)/2 - calculateTextWidth(semantic.name);
+        xStart = (startPoint.x + endPoint.x) / 2 - calculateTextWidth(semantic.name);
       }
 
       let box = {
@@ -296,8 +296,8 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
     let iconSRC = getTypeIconSRC(ACTOR, element.type);
 
     if (iconSRC.startsWith('data')) {
-      iconSRC = '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
-      '<image width="24" height="24" xlink:href="'+ iconSRC+ '"/></svg>';
+      iconSRC = '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+      '<image width="24" height="24" xlink:href="' + iconSRC + '"/></svg>';
     }
     else {
       if (!element.businessObject.pickedColor) {
@@ -305,10 +305,10 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
       }
       const match = iconSRC.match(/fill=".*?"/);
       if (match && match.length > 1) {
-        iconSRC=iconSRC.replace(/fill=".*?"/, 'fill="'+ element.businessObject.pickedColor +'"');
+        iconSRC = iconSRC.replace(/fill=".*?"/, 'fill="' + element.businessObject.pickedColor + '"');
       } else {
         const index = iconSRC.indexOf('<svg ') + 5;
-        iconSRC = iconSRC.substring(0, index) + ' fill=" '+ element.businessObject.pickedColor +'" ' + iconSRC.substring(index);
+        iconSRC = iconSRC.substring(0, index) + ' fill=" ' + element.businessObject.pickedColor + '" ' + iconSRC.substring(index);
       }
     }
     actor = svgCreate(iconSRC);
@@ -330,18 +330,18 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
         workObject;
     let iconSRC = getTypeIconSRC(WORKOBJECT, element.type);
     if (iconSRC.startsWith('data')) {
-      iconSRC = '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
-      '<image width="24" height="24" xlink:href="'+ iconSRC+ '"/></svg>';
+      iconSRC = '<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+      '<image width="24" height="24" xlink:href="' + iconSRC + '"/></svg>';
     }
     else {
       if (!element.businessObject.pickedColor) {
         element.businessObject.pickedColor = DEFAULT_COLOR;
       }
       if (iconSRC.match(/fill=".*?"/).length > 1) {
-        iconSRC=iconSRC.replace(/fill=".*?"/, 'fill="'+ element.businessObject.pickedColor +'"');
+        iconSRC = iconSRC.replace(/fill=".*?"/, 'fill="' + element.businessObject.pickedColor + '"');
       } else {
         const index = iconSRC.indexOf('<svg ') + 5;
-        iconSRC = iconSRC.substring(0, index) + ' fill=" '+ element.businessObject.pickedColor +'" ' + iconSRC.substring(index);
+        iconSRC = iconSRC.substring(0, index) + ' fill=" ' + element.businessObject.pickedColor + '" ' + iconSRC.substring(index);
       }
     }
     workObject = svgCreate(iconSRC);
@@ -358,9 +358,10 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
 
     if (element) {
       if (!element.businessObject.pickedColor) {
-        element.businessObject.pickedColor='black';
+        element.businessObject.pickedColor = 'black';
       }
-      let attrs = computeStyle(attrs, {
+      let attributes;
+      let attrs = computeStyle(attributes, {
         stroke: element.businessObject.pickedColor,
         fill: 'none',
         strokeWidth: 1.5,
@@ -388,7 +389,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
 
     let waypoints = element.waypoints;
     let startPoint = waypoints[0];
-    let endPoint = waypoints[waypoints.length -1];
+    let endPoint = waypoints[waypoints.length - 1];
 
     if (startPoint && endPoint && source && target) {
 
@@ -403,7 +404,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
       }
 
       // check if Endpoint can overlapp with text
-      if (endPoint.y > target.y +60) {
+      if (endPoint.y > target.y + 60) {
         if ((endPoint.x > target.x + 3) && (endPoint.x < target.x + 72)) {
           let lineOffset = getLineOffset(target);
           if ((target.y + 75 + lineOffset) > endPoint.y) {
@@ -416,16 +417,16 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
 
   function getLineOffset(element) {
     let id = element.id;
-    let offset =0;
+    let offset = 0;
 
     let objects = document.getElementsByClassName('djs-element djs-shape');
-    for (let i=0; i<objects.length; i++) {
+    for (let i = 0; i < objects.length; i++) {
       let data_id = objects.item(i).getAttribute('data-element-id');
       if (data_id == id) {
         let object = objects.item(i);
         let text = object.getElementsByTagName('text')[0];
         let tspans = text.getElementsByTagName('tspan');
-        let tspan = tspans[tspans.length -1];
+        let tspan = tspans[tspans.length - 1];
         let y = tspan.getAttribute('y');
         offset = y;
       }
@@ -508,7 +509,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
   // draw helper functions
   function drawPath(parentGfx, d, attrs) {
 
-    attrs = computeStyle(attrs, ['no-fill'], {
+    attrs = computeStyle(attrs, [ 'no-fill' ], {
       strokeWidth: 2,
       stroke: 'black'
     });
@@ -594,7 +595,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
 
     // resetting stroke dash array
     if (attrs.strokeDasharray === 'none') {
-      attrs.strokeDasharray = [10000, 1];
+      attrs.strokeDasharray = [ 10000, 1 ];
     }
 
     let marker = svgCreate('marker');
@@ -637,12 +638,12 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
     });
 
     let activityPath = [
-      ['M', waypoints[0].x, waypoints[0].y]
+      [ 'M', waypoints[0].x, waypoints[0].y ]
     ];
 
     waypoints.forEach(function(waypoint, index) {
       if (index !== 0) {
-        activityPath.push(['L', waypoint.x, waypoint.y]);
+        activityPath.push([ 'L', waypoint.x, waypoint.y ]);
       }
     });
     return componentsToPath(activityPath);
@@ -656,7 +657,7 @@ export default function DomainStoryRenderer(eventBus, styles, canvas, textRender
 
 inherits(DomainStoryRenderer, BaseRenderer);
 
-DomainStoryRenderer.$inject = ['eventBus', 'styles', 'canvas', 'textRenderer', 'pathMap', 'commandStack'];
+DomainStoryRenderer.$inject = [ 'eventBus', 'styles', 'canvas', 'textRenderer', 'pathMap', 'commandStack' ];
 
 DomainStoryRenderer.prototype.canRender = function(element) {
   return /^domainStory:/.test(element.type);
@@ -741,12 +742,12 @@ function getRectPath(shape) {
       height = (shape.height / 2) + offset;
 
   let rectPath = [
-    ['M', x, y],
-    ['l', width, 0],
-    ['l', width, height],
-    ['l', -width, height],
-    ['l', -width, 0],
-    ['z']
+    [ 'M', x, y ],
+    [ 'l', width, 0 ],
+    [ 'l', width, height ],
+    [ 'l', -width, height ],
+    [ 'l', -width, 0 ],
+    [ 'z' ]
   ];
   return rectPath;
 }

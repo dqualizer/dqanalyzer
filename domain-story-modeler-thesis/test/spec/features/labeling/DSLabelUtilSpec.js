@@ -21,7 +21,7 @@ describe('DSLabelUtil', function() {
       y: 20
     };
 
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
     let angleActivity = [];
 
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity
@@ -51,7 +51,7 @@ describe('DSLabelUtil', function() {
       y: 30
     };
 
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
     let angleActivity = [];
 
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity
@@ -80,7 +80,7 @@ describe('DSLabelUtil', function() {
       y: 10
     };
 
-    const waypoints = [startPoint, midPoint, endPoint];
+    const waypoints = [ startPoint, midPoint, endPoint ];
     let angleActivity = [];
 
     for (let i = 0; i < 3 - 1; i++) { // calculate the angles of the activity

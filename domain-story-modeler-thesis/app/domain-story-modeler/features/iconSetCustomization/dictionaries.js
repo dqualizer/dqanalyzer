@@ -3,7 +3,7 @@
 import { all_icons, appendedIcons } from '../../language/icon/all_Icons';
 import { Dict } from '../../language/classes/collection';
 
-let allIconDictionary= new Dict();
+let allIconDictionary = new Dict();
 let selectedAsActorDictionary = new Dict();
 let selectedAsWorkObjectDictionary = new Dict();
 
@@ -64,7 +64,7 @@ export function deleteFromSelectedWorkObjectDictionary(name) {
 }
 
 export function selectedDitionariesAreNotEmpty() {
-  return (selectedAsActorDictionary.length > 0 && selectedAsWorkObjectDictionary.length >0);
+  return (selectedAsActorDictionary.length > 0 && selectedAsWorkObjectDictionary.length > 0);
 }
 
 export function resetSelectionDictionaries() {

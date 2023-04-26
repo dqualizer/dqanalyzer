@@ -11,7 +11,7 @@ describe('pngDownload', function() {
     const controllwidth = 308,
           controllheight = 327;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);
@@ -26,7 +26,7 @@ describe('pngDownload', function() {
     const controllwidth = 303,
           controllheight = 304;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);
@@ -41,7 +41,7 @@ describe('pngDownload', function() {
     const controllwidth = 312,
           controllheight = 333;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);
@@ -56,7 +56,7 @@ describe('pngDownload', function() {
     const controllwidth = 302,
           controllheight = 333;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);
@@ -71,7 +71,7 @@ describe('pngDownload', function() {
     const controllwidth = 308,
           controllheight = 347;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);
@@ -86,7 +86,7 @@ describe('pngDownload', function() {
     const controllwidth = 318,
           controllheight = 357;
 
-    const [height, width] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
+    const [ height, width ] = calculateWidthAndHeight(xLeft, xRight, yUp, yDown);
 
     assert.equal(controllheight, height);
     assert.equal(controllwidth, width);

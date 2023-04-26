@@ -7,7 +7,7 @@ describe('numbering', function() {
 
     // Given
     const element = {
-      waypoints: [{
+      waypoints: [ {
         original: {
           x: 10,
           y:10

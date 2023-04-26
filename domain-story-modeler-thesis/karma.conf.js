@@ -14,14 +14,14 @@ var browsers = (process.env.TEST_BROWSERS || 'Firefox')
 
 module.exports = function(karma) {
   karma.set({
-    frameworks: ['browserify', 'mocha', 'chai'],
+    frameworks: [ 'browserify', 'mocha', 'chai' ],
 
-    files: ['test/spec/**/*Spec.js'],
+    files: [ 'test/spec/**/*Spec.js' ],
 
-    reporters: ['spec'],
+    reporters: [ 'spec' ],
 
     preprocessors: {
-      'test/spec/**/*Spec.js': ['browserify']
+      'test/spec/**/*Spec.js': [ 'browserify' ]
     },
 
     browsers: browsers,
@@ -41,13 +41,13 @@ module.exports = function(karma) {
           'stringify',
           {
             global: true,
-            extensions: ['.bpmn', '.css']
+            extensions: [ '.bpmn', '.css' ]
           }
         ],
         [
           'babelify', {
             global: true,
-            presets:['@babel/preset-env']
+            presets:[ '@babel/preset-env' ]
           }
         ]
       ]

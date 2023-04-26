@@ -15,7 +15,7 @@ DomainStoryIdFactory.prototype.registerId = function(id) {
 
 function generateId(type) {
 
-  let idNumber =fourDigitsId();
+  let idNumber = fourDigitsId();
 
   let id = type + '_' + idSuffix(idNumber);
 
@@ -35,7 +35,7 @@ function idSuffix(idNumber) {
     id = 0;
   }
   else if (idNumber < 10) {
-    id= '000' + idNumber;
+    id = '000' + idNumber;
   }
   else if (idNumber < 100) {
     id = '00' + idNumber;

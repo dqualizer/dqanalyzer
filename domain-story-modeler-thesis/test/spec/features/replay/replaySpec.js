@@ -13,13 +13,13 @@ describe('replay', function() {
 
     // Given
     const replaySteps = [
-      { activities: [1] },
-      { activities: [1] },
-      { activities: [1] },
-      { activities: [1] },
-      { activities: [1] },
-      { activities: [1] },
-      { activities: [1] }
+      { activities: [ 1 ] },
+      { activities: [ 1 ] },
+      { activities: [ 1 ] },
+      { activities: [ 1 ] },
+      { activities: [ 1 ] },
+      { activities: [ 1 ] },
+      { activities: [ 1 ] }
     ];
 
     // When
@@ -33,13 +33,13 @@ describe('replay', function() {
 
     // Given
     const replaySteps = [
-      { activities: [' '] },
-      { activities: [' '] },
+      { activities: [ ' ' ] },
+      { activities: [ ' ' ] },
       { activities: [] },
-      { activities: [' '] },
-      { activities: [' '] },
-      { activities: [' '] },
-      { activities: [' '] }
+      { activities: [ ' ' ] },
+      { activities: [ ' ' ] },
+      { activities: [ ' ' ] },
+      { activities: [ ' ' ] }
     ];
 
     // When
@@ -140,7 +140,7 @@ describe('replay', function() {
               ]
             }
           };
-    let activitiesFromActors = [tracedActivity1, tracedActivity2];
+    let activitiesFromActors = [ tracedActivity1, tracedActivity2 ];
 
     // When
 

@@ -21,12 +21,12 @@ import { isInTypeDictionary } from '../../language/icon/dictionaries';
 import { customConfigTag } from './persitence';
 import { default_conf } from '../../language/icon/iconConfig';
 import { setListElementStyle, setRadioElementStyle, setVerticalLineElementStyle, setImageElementStyle, iconSize } from './styling';
+import Sortable from 'sortablejs';
 
 let htmlList = document.getElementById('allIconsList');
 let selectedActorsList = document.getElementById('selectedActorsList');
 let selectedWorkObjectList = document.getElementById('selectedWorkObjectsList');
 
-const Sortable = require('sortablejs');
 const highlightBackgroundColor = '#f6f6f6';
 
 let actorListArray = [];
@@ -45,7 +45,7 @@ const mainListOptions = {
 const actorListOptions = {
   group: {
     name: 'actorIconList',
-    put: ['actorIconList', 'workObjectIconList']
+    put: [ 'actorIconList', 'workObjectIconList' ]
   },
   sort: 'false',
   onEnd: function(event) {
@@ -56,7 +56,7 @@ const actorListOptions = {
 const workObjectListOptions = {
   group: {
     name: 'workObjectIconList',
-    put: ['actorIconList', 'workObjectIconList']
+    put: [ 'actorIconList', 'workObjectIconList' ]
   },
   sort: 'false',
   onEnd: function(event) {

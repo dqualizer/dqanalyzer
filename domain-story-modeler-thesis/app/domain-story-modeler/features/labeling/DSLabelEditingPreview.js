@@ -107,7 +107,7 @@ export default function DSLabelEditingPreview(
     }
   });
 
-  eventBus.on(['directEditing.complete', 'directEditing.cancel'], function(context) {
+  eventBus.on([ 'directEditing.complete', 'directEditing.cancel' ], function(context) {
     let activeProvider = context.active;
 
     if (activeProvider) {

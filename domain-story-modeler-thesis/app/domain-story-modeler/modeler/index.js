@@ -38,11 +38,11 @@ export default {
   domainStoryRules: [ 'type', DomainStoryRules ],
   domainStoryUpdater: [ 'type', DomainStoryUpdater ],
   contextPadProvider: [ 'type', DomainStoryContextPadProvider ],
-  elementFactoryBpmn: ['type', ElementFactory],
+  elementFactoryBpmn: [ 'type', ElementFactory ],
   pathMap: [ 'type', PathMap ],
-  replaceMenuProvider: ['type', ReplaceMenuProvider],
-  commandStack: ['type', CommandStack],
-  dSUpdateLabelHandler: ['type', DSUpdateLabelHandler],
-  headlineAndDescriptionUpdateHandler: ['type', headlineAndDescriptionUpdateHandler],
-  modeling : ['type', DSModeling]
+  replaceMenuProvider: [ 'type', ReplaceMenuProvider ],
+  commandStack: [ 'type', CommandStack ],
+  dSUpdateLabelHandler: [ 'type', DSUpdateLabelHandler ],
+  headlineAndDescriptionUpdateHandler: [ 'type', headlineAndDescriptionUpdateHandler ],
+  modeling : [ 'type', DSModeling ]
 };

@@ -112,7 +112,7 @@ export const createAnalysisResultsView = () => {
 
   let resultMetric__loadtests__ninetyFivePercentile;
 
-  let resilience__environment__existingTest;
+  let _resilience__environment__existingTest;
 
   /**
      * CAUTION: This block of code is only necessary for the prototype.
@@ -132,12 +132,12 @@ export const createAnalysisResultsView = () => {
       const loadtest = parsedResults.loadtest[0];
       if (loadtest) {
 
-        for (const [key, value] of Object.entries(loadtest)) {
+        for (const [ key, value ] of Object.entries(loadtest)) {
           if (key === 'artifact') {
             loadtests__stimulus__artifact = value;
           }
           if (key === 'stimulus') {
-            for (const [innerKey, innerValue] of Object.entries(loadtest.stimulus)) {
+            for (const [ innerKey, innerValue ] of Object.entries(loadtest.stimulus)) {
               if (innerKey === 'Highest Load') {
                 loadtests__stimulus__highestLoad = innerValue;
               }
@@ -161,7 +161,7 @@ export const createAnalysisResultsView = () => {
           }
 
           if (key === 'environment') {
-            for (const [innerKey, innerValue] of Object.entries(loadtest.environment)) {
+            for (const [ innerKey, innerValue ] of Object.entries(loadtest.environment)) {
               if (innerKey === 'Confidence') {
                 loadtests__stimulus__accuracy = innerValue;
               }
@@ -169,14 +169,14 @@ export const createAnalysisResultsView = () => {
           }
 
           if (key === 'responseMeasure') {
-            for (const [innerKey, innerValue] of Object.entries(loadtest.responseMeasure)) {
+            for (const [ _innerKey, innerValue ] of Object.entries(loadtest.responseMeasure)) {
               loadtests__stimulus__responseMeasure = innerValue;
             }
           }
 
           if (key === 'resultMetrics') {
-            for (const [innerKey, innerValue] of Object.entries(loadtest.resultMetrics)) {
-              for (const [metricKey, metricValue] of Object.entries(innerValue)) {
+            for (const [ _innerKey, innerValue ] of Object.entries(loadtest.resultMetrics)) {
+              for (const [ metricKey, metricValue ] of Object.entries(innerValue)) {
                 if (metricValue === 'Response Times') {
                   resultMetric__loadtests__responseTimes = metricValue;
                 }
@@ -198,12 +198,12 @@ export const createAnalysisResultsView = () => {
     if (parsedResults.resiliencetest) {
       const resilienceTest = parsedResults.resiliencetest[0];
       if (resilienceTest) {
-        for (const [key, value] of Object.entries(resilienceTest)) {
+        for (const [ key, value ] of Object.entries(resilienceTest)) {
           if (key === 'artifact') {
             resilience__artifact = value;
           }
           if (key === 'stimulus') {
-            for (const [innerKey, innerValue] of Object.entries(resilienceTest.stimulus)) {
+            for (const [ innerKey, innerValue ] of Object.entries(resilienceTest.stimulus)) {
               if (innerKey === 'Type') {
                 stimulus__resilience__type = innerValue;
               }
@@ -213,7 +213,7 @@ export const createAnalysisResultsView = () => {
             }
           }
           if (key === 'environment') {
-            for (const [innerKey, innerValue] of Object.entries(resilienceTest.environment)) {
+            for (const [ innerKey, innerValue ] of Object.entries(resilienceTest.environment)) {
               if (innerKey === 'Environment') {
                 environment__resilience__environment = innerValue;
               }
@@ -221,7 +221,7 @@ export const createAnalysisResultsView = () => {
                 environment__resilience__stimuliRepetition = innerValue;
               }
               if (innerKey === 'Context') {
-                for (const [contextKey, contextValue] of Object.entries(innerValue)) {
+                for (const [ contextKey, contextValue ] of Object.entries(innerValue)) {
                   if (contextKey === 'NO_CONTEXT_INFORMATION') {
                     resilience__environment__noContext = contextValue;
                   }
@@ -235,7 +235,7 @@ export const createAnalysisResultsView = () => {
                   }
 
                   if (contextKey === 'Load Test') {
-                    resilience__environment__existingTest = true;
+                    _resilience__environment__existingTest = true;
                   }
                 }
 
@@ -243,7 +243,7 @@ export const createAnalysisResultsView = () => {
             }
           }
           if (key === 'responseMeasure') {
-            for (const [innerKey, innerValue] of Object.entries(resilienceTest.responseMeasure)) {
+            for (const [ innerKey, innerValue ] of Object.entries(resilienceTest.responseMeasure)) {
               if (innerKey === 'Recovery time') {
                 responseMeasure__resilience__recoveryTime = innerValue;
                 responseMeasure__recoveryTime__keyValue = innerKey;

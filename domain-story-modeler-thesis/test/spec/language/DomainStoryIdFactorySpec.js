@@ -33,12 +33,12 @@ describe('DomainStoryIdFactory', function() {
     this.timeout(0);
     const idFactory = new DomainStoryIdFactory();
     const res = [];
-    for (let i=0; i<5000;i++) {
-      res[i] =idFactory.getId('');
+    for (let i = 0; i < 5000;i++) {
+      res[i] = idFactory.getId('');
     }
 
-    for (let i=0; i<res.length-1;i++) {
-      for (let j=i+1; j<res.length;j++) {
+    for (let i = 0; i < res.length - 1;i++) {
+      for (let j = i + 1; j < res.length;j++) {
         assert.notEqual(res[i], res[j]);
       }
     }

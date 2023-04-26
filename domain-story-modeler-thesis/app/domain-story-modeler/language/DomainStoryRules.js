@@ -6,7 +6,7 @@ import {
   every
 } from 'min-dash';
 
-import inherits from 'inherits';
+import inherits from 'inherits-browser';
 
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
@@ -138,7 +138,7 @@ function canResize(shape, newBounds) {
 function canAttach(elements, target, source) {
 
   if (!Array.isArray(elements)) {
-    elements = [elements];
+    elements = [ elements ];
   }
 
   // disallow appending as boundary event
@@ -193,7 +193,7 @@ export default function DomainStoryRules(eventBus) {
 
 inherits(DomainStoryRules, RuleProvider);
 
-DomainStoryRules.$inject = ['eventBus'];
+DomainStoryRules.$inject = [ 'eventBus' ];
 
 
 DomainStoryRules.prototype.init = function() {

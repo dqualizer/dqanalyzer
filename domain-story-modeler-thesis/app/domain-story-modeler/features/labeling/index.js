@@ -24,7 +24,7 @@ export default {
   ],
   dSlabelEditingProvider: [ 'type', DSLabelEditingProvider ],
   dSlabelEditingPreview: [ 'type', DSLabelEditingPreview ],
-  dSUpdateLabelHandler: ['type', DSUpdateLabelHandler],
-  commandStack: ['type', CommandStack],
-  modeling: [ 'type ', DSModeling]
+  dSUpdateLabelHandler: [ 'type', DSUpdateLabelHandler ],
+  commandStack: [ 'type', CommandStack ],
+  modeling: [ 'type ', DSModeling ]
 };
