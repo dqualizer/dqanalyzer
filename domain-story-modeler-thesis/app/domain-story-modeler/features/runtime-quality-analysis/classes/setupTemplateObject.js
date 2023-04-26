@@ -6,7 +6,7 @@ export const setupTemplateObject = (templateObject, type) => {
   //   rqaDefinition = JSON.parse(existingRuntimeQualityAnalysis);
   // }
   // else {
-  rqaDefinition = {
+  let rqaDefinition = {
     version: 1.0,
     context: 'werkstattauftrag',
     environment: 'TEST',
