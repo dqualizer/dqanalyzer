@@ -9,7 +9,7 @@ export default function DSElementHandler(commandStack, eventBus, modeling) {
 
   function element_colorChange() {
     this.preExecute = function(context) {
-      context.oldColor= context.businessObject.pickedColor;
+      context.oldColor = context.businessObject.pickedColor;
     };
 
     this.execute = function(context) {

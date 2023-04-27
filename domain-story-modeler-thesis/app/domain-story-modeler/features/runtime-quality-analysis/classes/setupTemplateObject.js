@@ -16,21 +16,22 @@ export const setupTemplateObject = (templateObject, type) => {
       monitoring: []
     },
   };
+
   // }
 
   switch (type) {
-    case 'RESILIENCE':
-      rqaDefinition.runtime_quality_analysis.resilience.push(templateObject);
-      break;
-    case 'LOADTEST':
-      rqaDefinition.runtime_quality_analysis.loadtests.push(templateObject);
-      break;
-    case 'MONITORING':
-      rqaDefinition.runtime_quality_analysis.monitoring.push(templateObject);
-      break;
-    default:
-      console.log('No matching category!');
-      break;
+  case 'RESILIENCE':
+    rqaDefinition.runtime_quality_analysis.resilience.push(templateObject);
+    break;
+  case 'LOADTEST':
+    rqaDefinition.runtime_quality_analysis.loadtests.push(templateObject);
+    break;
+  case 'MONITORING':
+    rqaDefinition.runtime_quality_analysis.monitoring.push(templateObject);
+    break;
+  default:
+    console.log('No matching category!');
+    break;
   }
 
 

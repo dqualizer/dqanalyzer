@@ -9,7 +9,7 @@ import {
   isArray
 } from 'min-dash';
 
-import inherits from 'inherits';
+import inherits from 'inherits-browser';
 
 import DomainStoryModule from './modeler';
 import LabelEditingModule from './features/labeling';
@@ -33,7 +33,7 @@ DomainStoryModeler.prototype._modules = [].concat(
     LabelEditingModule,
     ModelingModule
   ],
-  [ResizeModule]
+  [ ResizeModule ]
 );
 
 /**

@@ -85,7 +85,7 @@ const modeler = new DomainStoryModeler({
   // Disable BPMN-SearchModule, also re-enables browser Search
   additionalModules:[
     {
-      bpmnSearch:['value' , 'foo']
+      bpmnSearch:[ 'value' , 'foo' ]
     }
   ]
 });

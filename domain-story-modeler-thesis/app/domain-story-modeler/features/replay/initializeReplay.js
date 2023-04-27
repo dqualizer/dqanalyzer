@@ -76,10 +76,10 @@ export function createStep(tracedActivity) {
 
 function addGroupSteps(groups, allSteps) {
 
-  if (groups.length >0) {
+  if (groups.length > 0) {
     allSteps.push({
       groups: groups,
-      activities: [true]
+      activities: [ true ]
     });
   }
 

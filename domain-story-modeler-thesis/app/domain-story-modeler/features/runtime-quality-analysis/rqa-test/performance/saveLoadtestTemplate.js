@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { LoadTestTemplate } from '../../classes/performance/LoadTestTemplate';
 import { createNewSummaryForTemplate, createSummaryView } from '../../rqa-summary/summaryView';
 import { getNodeName, getNodeRectElementAndSetColor } from '../../util/util';
@@ -69,129 +70,129 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
       'Load Profile': stimulusType,
     };
 
-    let stimulusLoadPeakType = 'Highest Load';
-    let stimulusTimeToPeakType = 'Time to Highest Load';
+    let _stimulusLoadPeakType = 'Highest Load';
+    let _stimulusTimeToPeakType = 'Time to Highest Load';
     let stimulusTimeToPeakMeasure;
     let stimulusLoadPeakMeasure;
-    let stimulusTypeIncrease = 'Type of Increase';
+    let _stimulusTypeIncrease = 'Type of Increase';
     let stimulusTypeIncreaseMeasure;
-    let stimulusBaseLoadType = 'Base Load';
+    let _stimulusBaseLoadType = 'Base Load';
     let stimulusBaseLoadMeasure;
-    let resultMetrics;
+    let _resultMetrics;
     let parametrization;
 
     switch (stimulusType) {
-      case 'Load Peak':
-        let getHighestLoad__highBtn = document.getElementById(`highestLoad__high__btn_${selectedID}`);
-        let getHighestLoad__high = getHighestLoad__highBtn.classList.contains('active');
+    case 'Load Peak':
+      let getHighestLoad__highBtn = document.getElementById(`highestLoad__high__btn_${selectedID}`);
+      let getHighestLoad__high = getHighestLoad__highBtn.classList.contains('active');
 
-        let getHighestLoad__veryHighBtn = document.getElementById(`highestLoad__veryHigh__btn${selectedID}`);
-        let getHighestLoad__veryHigh = getHighestLoad__veryHighBtn.classList.contains('active');
+      let getHighestLoad__veryHighBtn = document.getElementById(`highestLoad__veryHigh__btn${selectedID}`);
+      let getHighestLoad__veryHigh = getHighestLoad__veryHighBtn.classList.contains('active');
 
-        let getHighestLoad__extremeBtn = document.getElementById(`load__extreme__btn${selectedID}`);
-        let getHighestLoad__extreme = getHighestLoad__extremeBtn.classList.contains('active');
+      let getHighestLoad__extremeBtn = document.getElementById(`load__extreme__btn${selectedID}`);
+      let getHighestLoad__extreme = getHighestLoad__extremeBtn.classList.contains('active');
 
-        let getTimeToHighest__slowBtn = document.getElementById(`load__low__btn_${selectedID}`);
-        let getTimeToHighest__slow = getTimeToHighest__slowBtn.classList.contains('active');
+      let getTimeToHighest__slowBtn = document.getElementById(`load__low__btn_${selectedID}`);
+      let getTimeToHighest__slow = getTimeToHighest__slowBtn.classList.contains('active');
 
-        let getTimeToHighest__fastBtn = document.getElementById(`load__medium__btn_${selectedID}`);
-        let getTimeToHighest__fast = getTimeToHighest__fastBtn.classList.contains('active');
+      let getTimeToHighest__fastBtn = document.getElementById(`load__medium__btn_${selectedID}`);
+      let getTimeToHighest__fast = getTimeToHighest__fastBtn.classList.contains('active');
 
-        let getTimeToHighest__veryFastBtn = document.getElementById(`load__high__btn${selectedID}`);
-        let getTimeToHighest__veryFast = getTimeToHighest__veryFastBtn.classList.contains('active');
+      let getTimeToHighest__veryFastBtn = document.getElementById(`load__high__btn${selectedID}`);
+      let getTimeToHighest__veryFast = getTimeToHighest__veryFastBtn.classList.contains('active');
 
-        if (getHighestLoad__high) {
-          stimulusLoadPeakMeasure = getHighestLoad__highBtn.textContent;
-        } else if (getHighestLoad__veryHigh) {
-          stimulusLoadPeakMeasure = getHighestLoad__veryHighBtn.textContent;
-        } else if (getHighestLoad__extreme) {
-          stimulusLoadPeakMeasure = getHighestLoad__extremeBtn.textContent;
-        }
+      if (getHighestLoad__high) {
+        stimulusLoadPeakMeasure = getHighestLoad__highBtn.textContent;
+      } else if (getHighestLoad__veryHigh) {
+        stimulusLoadPeakMeasure = getHighestLoad__veryHighBtn.textContent;
+      } else if (getHighestLoad__extreme) {
+        stimulusLoadPeakMeasure = getHighestLoad__extremeBtn.textContent;
+      }
 
-        if (getTimeToHighest__slow) {
-          stimulusTimeToPeakMeasure = getTimeToHighest__slowBtn.textContent;
-        } else if (getTimeToHighest__fast) {
-          stimulusTimeToPeakMeasure = getTimeToHighest__fastBtn.textContent;
-        } else if (getTimeToHighest__veryFast) {
-          stimulusTimeToPeakMeasure = getTimeToHighest__veryFastBtn.textContent;
-        }
+      if (getTimeToHighest__slow) {
+        stimulusTimeToPeakMeasure = getTimeToHighest__slowBtn.textContent;
+      } else if (getTimeToHighest__fast) {
+        stimulusTimeToPeakMeasure = getTimeToHighest__fastBtn.textContent;
+      } else if (getTimeToHighest__veryFast) {
+        stimulusTimeToPeakMeasure = getTimeToHighest__veryFastBtn.textContent;
+      }
 
-        parametrization = {
-          'path_variables': {
-            'auftragsnummer': 'auftrag/auftragsnummern/angelegt.json'
-          },
-          'url_parameter': {},
-          'request_parameter': {},
-          'payload': {}
-        };
-
-        stimulus = {
-          load_profile: 'LOAD_PEAK',
-          highest_load: stimulusLoadPeakMeasure.toUpperCase().replace(/\s+/g, "_"),
-          time_to_highest_load: stimulusTimeToPeakMeasure.toUpperCase().replace(/\s+/g, "_"),
-          accuracy: getAccuracy
-        };
-
-        break;
-      case 'Load Increase':
-        let getTypeOfIncreaseElement = document.getElementById(`loadIncrease__select_${selectedID}`);
-        let getTypeOfIncrease = getTypeOfIncreaseElement.value;
-        stimulusTypeIncreaseMeasure = getTypeOfIncrease;
-
-        parametrization = {
-          'path_variables': {},
-          'url_parameter': {},
-          'request_parameter': {
-            'headers': 'auftrag/allgemein/headers.json'
-          },
-          'payload': {
-            'auftraggeber_2022': 'auftrag/auftraggeber/2022/auftraggeber.json'
-          }
-        };
-
-        stimulus = {
-          load_profile: 'LOAD_INCREASE',
-          type_of_increase: stimulusTypeIncreaseMeasure.toUpperCase(),
-          accuracy: getAccuracy
-        };
-        break;
-      case 'Constant Load':
-        let getBaseLoad__lowBtn = document.getElementById(`baseLoad__low__btn${selectedID}`);
-        let getBaseLoad__low = getBaseLoad__lowBtn.classList.contains('active');
-
-        let getBaseLoad__mediumBtn = document.getElementById(`baseLoad__medium__btn${selectedID}`);
-        let getBaseLoad__medium = getBaseLoad__mediumBtn.classList.contains('active');
-
-        let getBaseLoad__HighBtn = document.getElementById(`baseLoad__high__btn${selectedID}`);
-        let getBaseLoad__High = getBaseLoad__HighBtn.classList.contains('active');
-
-        if (getBaseLoad__low) {
-          stimulusBaseLoadMeasure = getBaseLoad__lowBtn.textContent;
-        } else if (getBaseLoad__medium) {
-          stimulusBaseLoadMeasure = getBaseLoad__mediumBtn.textContent;
-        } else if (getBaseLoad__High) {
-          stimulusBaseLoadMeasure = getBaseLoad__HighBtn.textContent;
-        }
-
-        parametrization = {
-          'path_variables': {
-            'auftragsnummer': 'auftrag/auftragsnummern/angelegt.json'
-          },
-          'url_parameter': {},
-          'request_parameter': {
-            'headers': 'auftrag/allgemein/headers.json'
-          },
-          'payload': {
-            'auftragsstatus': 'auftrag/auftragsstatus/auftragsstatus.json'
-          }
+      parametrization = {
+        'path_variables': {
+          'auftragsnummer': 'auftrag/auftragsnummern/angelegt.json'
         },
+        'url_parameter': {},
+        'request_parameter': {},
+        'payload': {}
+      };
 
-          stimulus = {
-            load_profile: 'CONSTANT_LOAD',
-            base_load: stimulusBaseLoadMeasure.toUpperCase(),
-            accuracy: getAccuracy
-          };
-        break;
+      stimulus = {
+        load_profile: 'LOAD_PEAK',
+        highest_load: stimulusLoadPeakMeasure.toUpperCase().replace(/\s+/g, '_'),
+        time_to_highest_load: stimulusTimeToPeakMeasure.toUpperCase().replace(/\s+/g, '_'),
+        accuracy: getAccuracy
+      };
+
+      break;
+    case 'Load Increase':
+      let getTypeOfIncreaseElement = document.getElementById(`loadIncrease__select_${selectedID}`);
+      let getTypeOfIncrease = getTypeOfIncreaseElement.value;
+      stimulusTypeIncreaseMeasure = getTypeOfIncrease;
+
+      parametrization = {
+        'path_variables': {},
+        'url_parameter': {},
+        'request_parameter': {
+          'headers': 'auftrag/allgemein/headers.json'
+        },
+        'payload': {
+          'auftraggeber_2022': 'auftrag/auftraggeber/2022/auftraggeber.json'
+        }
+      };
+
+      stimulus = {
+        load_profile: 'LOAD_INCREASE',
+        type_of_increase: stimulusTypeIncreaseMeasure.toUpperCase(),
+        accuracy: getAccuracy
+      };
+      break;
+    case 'Constant Load':
+      let getBaseLoad__lowBtn = document.getElementById(`baseLoad__low__btn${selectedID}`);
+      let getBaseLoad__low = getBaseLoad__lowBtn.classList.contains('active');
+
+      let getBaseLoad__mediumBtn = document.getElementById(`baseLoad__medium__btn${selectedID}`);
+      let getBaseLoad__medium = getBaseLoad__mediumBtn.classList.contains('active');
+
+      let getBaseLoad__HighBtn = document.getElementById(`baseLoad__high__btn${selectedID}`);
+      let getBaseLoad__High = getBaseLoad__HighBtn.classList.contains('active');
+
+      if (getBaseLoad__low) {
+        stimulusBaseLoadMeasure = getBaseLoad__lowBtn.textContent;
+      } else if (getBaseLoad__medium) {
+        stimulusBaseLoadMeasure = getBaseLoad__mediumBtn.textContent;
+      } else if (getBaseLoad__High) {
+        stimulusBaseLoadMeasure = getBaseLoad__HighBtn.textContent;
+      }
+
+      parametrization = {
+        'path_variables': {
+          'auftragsnummer': 'auftrag/auftragsnummern/angelegt.json'
+        },
+        'url_parameter': {},
+        'request_parameter': {
+          'headers': 'auftrag/allgemein/headers.json'
+        },
+        'payload': {
+          'auftragsstatus': 'auftrag/auftragsstatus/auftragsstatus.json'
+        }
+      },
+
+      stimulus = {
+        load_profile: 'CONSTANT_LOAD',
+        base_load: stimulusBaseLoadMeasure.toUpperCase(),
+        accuracy: getAccuracy
+      };
+      break;
     }
 
     if (getResponseTime__satisfied) {
@@ -226,7 +227,7 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
       console.log('Please give the node a proper name that matches the architectural mapping!');
       return;
     }
-    ;
+
 
     const newLoadTestTemplateObj = new LoadTestTemplate(
       artifact,
@@ -254,15 +255,15 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
 };
 
 const verifyMandatory = (
-  selectedID,
-  stimulus,
-  accuracy,
-  responseTime__satisfied__checked,
-  responseTime__tolerated__checked,
-  responseTime__frustrated__checked,
-  resultResponseTime__provided,
-  resultNinetyPercentile__provided,
-  resultNinetyFivePercentile__provided) => {
+    selectedID,
+    stimulus,
+    accuracy,
+    responseTime__satisfied__checked,
+    responseTime__tolerated__checked,
+    responseTime__frustrated__checked,
+    resultResponseTime__provided,
+    resultNinetyPercentile__provided,
+    resultNinetyFivePercentile__provided) => {
 
 
   if (stimulus && (accuracy > 0) &&

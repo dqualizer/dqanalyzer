@@ -48,7 +48,7 @@ export default function DSUpdateLabelHandler(modeling, textRenderer, commandStac
       let element = ctx.element,
           businessObject = element.businessObject,
           newLabel = ctx.newLabel,
-          newNumber=ctx.newNumber;
+          newNumber = ctx.newNumber;
 
       if (!isLabel(element)
         && isLabelExternal(element)
@@ -74,7 +74,7 @@ export default function DSUpdateLabelHandler(modeling, textRenderer, commandStac
 
     this.execute = function(ctx) {
       ctx.oldLabel = getLabel(ctx.element);
-      ctx.oldNumber= getNumber(ctx.element);
+      ctx.oldNumber = getNumber(ctx.element);
       return setText(ctx.element, ctx.newLabel, ctx.newNumber);
     };
 
@@ -127,11 +127,11 @@ function setText(element, text, textNumber) {
   // external label if present
   let label = element.label || element;
 
-  let number= element.number || element;
+  let number = element.number || element;
 
   let labelTarget = element.labelTarget || element;
 
-  let numberTarget= element.numberTarget || element;
+  let numberTarget = element.numberTarget || element;
   setLabel(label, text);
   setNumber(number, textNumber);
 

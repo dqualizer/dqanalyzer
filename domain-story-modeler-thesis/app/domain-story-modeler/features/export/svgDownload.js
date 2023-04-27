@@ -33,8 +33,9 @@ export function setEncoded(data) {
 function createSVGData(withTitle) {
 
   let data = JSON.parse(JSON.stringify(cacheData));
-  
+
   if (withTitle) {
+
     // to ensure that the title and description are inside the SVG container and do not overlapp with any elements,
     // we change the confines of the SVG viewbox
     let descriptionText = infoText.innerHTML;
@@ -118,6 +119,6 @@ function appendDST(data) {
 
   const dstText = JSON.stringify(objects);
   const dst = createConfigAndDst(dstText);
-  data+= '\n<!-- <DST>\n' + JSON.stringify(dst) + '\n </DST> -->';
+  data += '\n<!-- <DST>\n' + JSON.stringify(dst) + '\n </DST> -->';
   return data;
 }

@@ -1,441 +1,567 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link
+      rel="stylesheet"
+      href="/dependencies/bpmn-js/assets/bpmn-font/css/bpmn.css"
+    />
+    <!-- for lasso tool, space tool etc. -->
+    <link rel="stylesheet" href="/dependencies/diagram-js.css" />
+    <!-- for palette -->
+    <link rel="stylesheet" href="/app/domain-story.css" />
+    <link
+      rel="stylesheet"
+      href="domain-story-modeler/language/icon/icons.css"
+      id="iconsCss"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+    <!-- Bootstrap for thesis -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/jquery-3.6.0.min.js"></script>
+    <title>Domain Story Modeler</title>
+    <link rel="icon" type="image/png" href="/logo/domainStorytellingIcon.png" />
+  </head>
 
-  <link rel="stylesheet" href="dependencies/bpmn-js/assets/bpmn-font/css/bpmn.css" />
-  <!-- for lasso tool, space tool etc. -->
-  <link rel="stylesheet" href="dependencies/diagram-js.css" /> <!-- for palette -->
-  <link rel="stylesheet" href="domain-story.css" />
-  <link rel="stylesheet" href="domain-story-modeler/language/icon/icons.css" id="iconsCss" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-  <!-- Bootstrap for thesis -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="jquery-3.6.0.min.js"></script>
-  <title>Domain Story Modeler</title>
-  <link rel="icon" type="image/png" href="./logo/domainStorytellingIcon.png">
-</head>
+  <body>
+    <input
+      type="file"
+      accept=".svg, image/png, image/jpeg, image/gif, image/bmp"
+      style="display: none"
+      id="importIcon"
+      onclick="this.value=null;"
+      name="file"
+    />
 
-<body>
-
-  <input type="file" accept=".svg, image/png, image/jpeg, image/gif, image/bmp" style="display:none;" id="importIcon"
-    onclick="this.value=null;" name="file" />
-
-  <div id="modal" style="display:none;"></div>
-  <div class="headerAndCanvas">
-    <div id="pickerAnchor"></div>
-    <div class="header">
-      <div id="headlineAndButtons">
-        <h3 id="headline">
-          <text id="title">&ltname of this Domain Story&gt</text>
-          <img src="./logo/edit_blue.png" id="edit">
-        </h3>
-        <div class="ButtonContainer">
-          <div id=editModeButtons>
-            <button id="buttonStartReplay" class="startReplayButton" title="Start replay">
-              <img src="./logo/play.png">
-            </button>
-            <button id="buttonImport" class="importButton" title="Import story from file"
-              onclick="document.getElementById('import').click();">
-              <img src="./logo/unarchive.png">
-            </button>
-            <input type="file" accept=".dst, .svg" style="display:none;" id="import" onclick="this.value=null;"
-              name="file" />
-            <button class="exportButton" id="export" title="Export story as .dst file">
-              <img id="exportButtonIMG" src="./logo/archive.png">
-              <img id="exportButtonIMGDirty" src="./logo/archive_dirty.png" style="display: none">
-            </button>
-            <button class="downloadButton" id="buttonImageDownloads"
-              title="Export story as SVG or PNG image, or animated HTML">
-              <img src="./logo/image.png">
-            </button>
-            <button id="dictionaryButton" title="Edit dictionary">
-              <img src="./logo/spellcheck.png">
-            </button>
-            <button id="iconCustomizationButton">
-              <img src="./logo//settings.png" title="Customize icons">
-              <button id="keyboardShortcutInfoButton" title="Show keyboard shortcuts">
-                <img src="./logo/shortCutInfo.png">
+    <div id="modal" style="display: none"></div>
+    <div class="headerAndCanvas">
+      <div id="pickerAnchor"></div>
+      <div class="header">
+        <div id="headlineAndButtons">
+          <h3 id="headline">
+            <text id="title">&lt;name of this Domain Story&gt;</text>
+            <img src="/logo/edit_blue.png" id="edit" />
+          </h3>
+          <div class="ButtonContainer">
+            <div id="editModeButtons">
+              <button
+                id="buttonStartReplay"
+                class="startReplayButton"
+                title="Start replay"
+              >
+                <img src="/logo/play.png" />
               </button>
-          </div>
-          <div id="presentationModeButtons" style="display: none">
-            <button id="buttonPreviousStep" class="prevoiusStepButton" title="Previous Step">
-              <img src="./logo/previous.png">
-            </button>
-            <button id="buttonNextStep" class="NextStepButton" title="NextStep">
-              <img src="./logo/forward.png">
-            </button>
-            <button id="buttonStopReplay" class="stopReplayButton" title="Stop replay">
-              <img src="./logo/stop.png">
-            </button>
-            <div id="replayStep"> 0/0</div>
-          </div>
-          <div></div>
-        </div>
-      </div>
-      <div id="infoContainer">
-        <div id="infoText">
-          <!-- THESIS -->
-        </div>
-        <div id="infoContextContainer">
-          <div id="col-left">
-            <div id="currentDomainNameContainer">
-              <text>Domain: </text>
-              <text id="currentDomainName">default</text>
+              <button
+                id="buttonImport"
+                class="importButton"
+                title="Import story from file"
+                onclick="document.getElementById('import').click();"
+              >
+                <img src="/logo/unarchive.png" />
+              </button>
+              <input
+                type="file"
+                accept=".dst, .svg"
+                style="display: none"
+                id="import"
+                onclick="this.value=null;"
+                name="file"
+              />
+              <button
+                class="exportButton"
+                id="export"
+                title="Export story as .dst file"
+              >
+                <img id="exportButtonIMG" src="/logo/archive.png" />
+                <img
+                  id="exportButtonIMGDirty"
+                  src="/logo/archive_dirty.png"
+                  style="display: none"
+                />
+              </button>
+              <button
+                class="downloadButton"
+                id="buttonImageDownloads"
+                title="Export story as SVG or PNG image, or animated HTML"
+              >
+                <img src="/logo/image.png" />
+              </button>
+              <button id="dictionaryButton" title="Edit dictionary">
+                <img src="/logo/spellcheck.png" />
+              </button>
+              <button id="iconCustomizationButton">
+                <img src="/logo//settings.png" title="Customize icons" />
+                <button
+                  id="keyboardShortcutInfoButton"
+                  title="Show keyboard shortcuts"
+                >
+                  <img src="/logo/shortCutInfo.png" />
+                </button>
+              </button>
             </div>
+            <div id="presentationModeButtons" style="display: none">
+              <button
+                id="buttonPreviousStep"
+                class="prevoiusStepButton"
+                title="Previous Step"
+              >
+                <img src="/logo/previous.png" />
+              </button>
+              <button
+                id="buttonNextStep"
+                class="NextStepButton"
+                title="NextStep"
+              >
+                <img src="/logo/forward.png" />
+              </button>
+              <button
+                id="buttonStopReplay"
+                class="stopReplayButton"
+                title="Stop replay"
+              >
+                <img src="/logo/stop.png" />
+              </button>
+              <div id="replayStep">0/0</div>
+            </div>
+            <div></div>
           </div>
-          <div id="col-right">
-            <div id="selectedContextContainer">
-              <div id="currentBoundedContextContainer">
-                <text>Context: </text>
-                <text id="currentContext">default</text>
+        </div>
+        <div id="infoContainer">
+          <div id="infoText">
+            <!-- THESIS -->
+          </div>
+          <div id="infoContextContainer">
+            <div id="col-left">
+              <div id="currentDomainNameContainer">
+                <text>Domain: </text>
+                <text id="currentDomainName">default</text>
               </div>
             </div>
-            <div id="analysisResultsContainer">
-              <div id="analysisResults">
+            <div id="col-right">
+              <div id="selectedContextContainer">
+                <div id="currentBoundedContextContainer">
+                  <text>Context: </text>
+                  <text id="currentContext">default</text>
+                </div>
               </div>
-              <div id="modal__results__container">
-                <div id="results_modal" class="modal__container">
+              <div id="analysisResultsContainer">
+                <div id="analysisResults"></div>
+                <div id="modal__results__container">
+                  <div id="results_modal" class="modal__container"></div>
                 </div>
               </div>
             </div>
           </div>
+          <div id="summaryContainer">
+            <div
+              id="runtimeAnalysisSummaryContainer"
+              class="runtime-quality-analysis-info-container"
+            ></div>
+          </div>
+          <div id="modal__container"></div>
+          <div
+            id="existingLoadTests__modal__container"
+            class="confirmation-modal"
+          ></div>
+          <div id="notification__container"></div>
         </div>
-        <div id="summaryContainer">
-          <div id="runtimeAnalysisSummaryContainer" class="runtime-quality-analysis-info-container">
+        <!-- THESIS:END -->
+      </div>
+      <div id="line"></div>
+      <div id="canvas"></div>
+    </div>
+    <div class="logoContainer">
+      <div id="imgWPS">
+        <img src="/logo/Quadrat_wps_de_Farbig.png" height="54" width="40" />
+      </div>
+      <div id="imgDST">
+        <!-- a href="http://domainstorytelling.org/" -->
+        <img src="/logo/dst_logo.png" height="74" width="74" />
+        <!-- /a -->
+      </div>
+    </div>
+
+    <div id="wpsLogoInfo" style="display: none">
+      <button id="closeWPSLogoInfo">X</button>
+      <br />
+      <text id="wpsLogoInnerText"></text>
+      <a href="https://www.wps.de">wps.de</a>
+      <text id="wpsLogoInnerText2"></text>
+      <br />
+      <a href="https://github.com/WPS/domain-story-modeler"
+        >https://github.com/WPS/domain-story-modeler</a
+      >
+    </div>
+
+    <div id="dstLogoInfo" style="display: none">
+      <button id="closeDSTLogoInfo">X</button>
+      <br />
+      <text id="dstLogoInnerText"></text>
+      <br />
+      <a href="http://www.domainstorytelling.org">domainstorytelling.org</a>
+    </div>
+
+    <div id="arrowDialog">
+      <div id="arrow" class="arrow" style="display: none"></div>
+      <div id="dialog" style="display: none">
+        <div id="dialogTitle">Title:</div>
+        <div id="dialogInput">
+          <input type="text" id="titleInput" maxlength="160" />
+        </div>
+        <div id="dialogInfo">Description:</div>
+        <div id="descriptionInput">
+          <textarea
+            name="Text1"
+            cols="40"
+            rows="5"
+            id="info"
+            maxlength="500"
+          ></textarea>
+        </div>
+        <div id="dialogButtons">
+          <button id="saveButton">Save</button>
+          <button id="quitButton">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="iconCustomizationContainer" style="display: none">
+      <div class="iconConfigCustomization">
+        <div class="topButtonRow">
+          <div>
+            <button id="resetIconConfigButton">reset to default</button>
+            <button
+              id="uploadCutomIcon"
+              onclick="document.getElementById('importIcon').click();"
+            >
+              upload custom icon
+            </button>
+          </div>
+          <div>
+            <span>Domain name:</span>
+            <input type="text" id="domainNameInput" value="default" />
+          </div>
+          <div>
+            <img
+              src="/logo/unarchive.png"
+              id="importConfigurationButton"
+              title="import icon configuration"
+              onclick="document.getElementById('importConfig').click()"
+            />
+            <img
+              id="exportConfigurationButton"
+              src="/logo/archive.png"
+              title="export icon configuration"
+            />
+            <input
+              type="file"
+              accept=".domain"
+              style="display: none"
+              id="importConfig"
+              onclick="this.value=null;"
+              name="file"
+            />
+          </div>
+          <div>
+            <button id="customIconConfigSaveButton">Save</button>
+            <button id="cancelIconCustomizationButton">Cancel</button>
           </div>
         </div>
-        <div id="modal__container">
-        </div>
-        <div id="existingLoadTests__modal__container" class="confirmation-modal">
-          
-        </div>
-        <div id="notification__container">
-        </div>
-      </div>
-      <!-- THESIS:END -->
-    </div>
-    <div id="line"></div>
-    <div id="canvas"></div>
-  </div>
-  <div class="logoContainer">
-    <div id="imgWPS">
-      <img src="./logo/Quadrat_wps_de_Farbig.png" height="54" width="40" />
-    </div>
-    <div id="imgDST">
-      <!-- a href="http://domainstorytelling.org/" -->
-      <img src="./logo/dst_logo.png" height="74" width="74" />
-      <!-- /a -->
-    </div>
-  </div>
-
-  <div id="wpsLogoInfo" style="display:none;">
-    <button id="closeWPSLogoInfo">X</button>
-    <br>
-    <text id="wpsLogoInnerText"></text>
-    <a href="https://www.wps.de">wps.de</a>
-    <text id="wpsLogoInnerText2"></text>
-    <br>
-    <a href="https://github.com/WPS/domain-story-modeler">https://github.com/WPS/domain-story-modeler</a>
-  </div>
-
-  <div id="dstLogoInfo" style="display:none;">
-    <button id="closeDSTLogoInfo">X</button>
-    <br>
-    <text id="dstLogoInnerText"></text>
-    <br>
-    <a href="http://www.domainstorytelling.org">domainstorytelling.org</a>
-  </div>
-
-  <div id="arrowDialog">
-    <div id="arrow" class="arrow" style="display:none;"></div>
-    <div id="dialog" style="display:none;">
-      <div id="dialogTitle">Title:</div>
-      <div id="dialogInput">
-        <input type="text" id="titleInput" maxlength="160" />
-      </div>
-      <div id="dialogInfo">Description:</div>
-      <div id="descriptionInput">
-        <textarea name="Text1" cols="40" rows="5" id="info" maxlength="500"></textarea>
-      </div>
-      <div id="dialogButtons">
-        <button id="saveButton">Save</button>
-        <button id="quitButton">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="iconCustomizationContainer" style="display:none">
-    <div class="iconConfigCustomization">
-      <div class="topButtonRow">
-        <div>
-          <button id="resetIconConfigButton">reset to default</button>
-          <button id="uploadCutomIcon" onclick="document.getElementById('importIcon').click();"> upload custom
-            icon</button>
-        </div>
-        <div>
-          <span>Domain name:</span>
-          <input type="text" id="domainNameInput" value="default">
-        </div>
-        <div>
-          <img src="./logo/unarchive.png" id="importConfigurationButton" title="import icon configuration"
-            onclick="document.getElementById('importConfig').click()">
-          <img id="exportConfigurationButton" src="./logo/archive.png" title="export icon configuration">
-          <input type="file" accept=".domain" style="display:none;" id="importConfig" onclick="this.value=null;"
-            name="file" />
-        </div>
-        <div>
-          <button id="customIconConfigSaveButton">Save</button>
-          <button id="cancelIconCustomizationButton">Cancel</button>
-        </div>
-      </div>
-      <div class="iconListsContainer">
-        <div id="allIconListContainer">
-          <div id="allIconsListHeader">
-            <text> Unassigned |</text>
-            <text> Actor |</text>
-            <text> WorkObject</text>
-          </div>
-          <div class="listWrapper">
-            <ul id="allIconsList"></ul>
-          </div>
-        </div>
-        <div class="selectedIconsContainer">
-          <div id="selectedActorsContainer">
-            <p class="selectedIconListHeader">Actors</p>
+        <div class="iconListsContainer">
+          <div id="allIconListContainer">
+            <div id="allIconsListHeader">
+              <text> Unassigned |</text>
+              <text> Actor |</text>
+              <text> WorkObject</text>
+            </div>
             <div class="listWrapper">
-              <ul id="selectedActorsList"></ul>
+              <ul id="allIconsList"></ul>
             </div>
           </div>
-          <div id="selectedWorkObjectsContainer">
-            <p class="selectedIconListHeader">WorkObjects</p>
-            <div class="listWrapper">
-              <ul id="selectedWorkObjectsList"></ul>
+          <div class="selectedIconsContainer">
+            <div id="selectedActorsContainer">
+              <p class="selectedIconListHeader">Actors</p>
+              <div class="listWrapper">
+                <ul id="selectedActorsList"></ul>
+              </div>
+            </div>
+            <div id="selectedWorkObjectsContainer">
+              <p class="selectedIconListHeader">WorkObjects</p>
+              <div class="listWrapper">
+                <ul id="selectedWorkObjectsList"></ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="downloadDialog" style="display: none;">
-    <button id="downloadDialogCancelButton">X</button>
-    <br>
-    <label>
-      <input id="withTitleInput" type="checkbox" />
-      Add title and description into image
-    </label>
-    <br>
-    <div class="buttonContainer">
-      <button id="buttonSVG">
-        SVG
-      </button>
-      <button id=buttonPNG>
-        PNG
-      </button>
-      <button id="buttonDownloadStory">
-        HTML
-      </button>
-    </div>
-  </div>
-
-  <div id="numberDialog" style="display:none;">
-    <div id="number">Number:</div>
-    <input type="number" class="numberID" id="inputNumber" min="1" max="99" maxlength="2" size="2">
-    <label>
-      <input type="checkbox" name="Nummer mehrfach zulassen" id="multipleNumberAllowed">
-      multiple
-    </label>
-    <div id="label">Activity:</div>
-    <div>
-      <textarea id="inputLabel" type="text" autocomplete="off"></textarea>
-    </div>
-    <div id="numberDialogButtons">
-      <button id="numberSaveButton">Save</button>
-      <button id="numberQuitButton">Cancel</button>
-    </div>
-  </div>
-
-  <div id="labelDialog" style="display:none;">
-    <div id="labelName">Activity:</div>
-    <div>
-      <textarea id="labelInputLabel" type="text" autocomplete="off"></textarea>
-    </div>
-    <div id="labelDialogButtons">
-      <button id="labelSaveButton">Save</button>
-      <button id="labelQuitButton">Cancel</button>
-    </div>
-  </div>
-
-  <div id="keyboardShortcutInfo" style="display:none">
-    <button id="keyboardShortcutInfoDialogButtonCancel" style="float:right; margin-left:5px">X</button>
-    <br>
-    <table id="keyboardTable">
-      <thead>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Undo</td>
-          <td>ctrl + Z</td>
-        </tr>
-        <tr>
-          <td>Redo</td>
-          <td>ctrl + Y or ctrl + shift + Z</td>
-        </tr>
-        <tr>
-          <td>Select All</td>
-          <td>ctrl + A</td>
-        </tr>
-        <tr>
-          <td>Export as .dst</td>
-          <td>ctrl + S</td>
-        </tr>
-        <tr>
-          <td>Import from .dst</td>
-          <td>ctrl + L</td>
-        </tr>
-        <tr>
-          <td>Search for text (default browser funtion)</td>
-          <td>ctrl + F</td>
-        </tr>
-        <tr>
-          <td>Edit label</td>
-          <td>E</td>
-        </tr>
-        <tr>
-          <td>Copy/paste</td>
-          <td>ctrl + C, ctrl + V</td>
-        </tr>
-        <tr>
-          <td>Hand tool</td>
-          <td>H</td>
-        </tr>
-        <tr>
-          <td>Lasso tool</td>
-          <td>L</td>
-        </tr>
-        <tr>
-          <td>Space tool</td>
-          <td>S</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div id="dictionaryDialog" style="display:none">
-    <div>
-      <div id="activityDictionary" style="float:left">
-        <text>Activities:</text>
-        <div id="activityDictionaryContainer"></div>
-      </div>
-      <div id="workobjectDictionary" style="float:left">
-        <text>Work Objects:</text>
-        <div id="workobjectDictionaryContainer"></div>
+    <div id="downloadDialog" style="display: none">
+      <button id="downloadDialogCancelButton">X</button>
+      <br />
+      <label>
+        <input id="withTitleInput" type="checkbox" />
+        Add title and description into image
+      </label>
+      <br />
+      <div class="buttonContainer">
+        <button id="buttonSVG">SVG</button>
+        <button id="buttonPNG">PNG</button>
+        <button id="buttonDownloadStory">HTML</button>
       </div>
     </div>
-    <div style="clear:both;"></div>
-    <div id="dictionaryButtons">
-      <button id="closeDictionaryButtonSave">Save</button>
-      <button id="closeDictionaryButtonCancel">Cancel</button>
+
+    <div id="numberDialog" style="display: none">
+      <div id="number">Number:</div>
+      <input
+        type="number"
+        class="numberID"
+        id="inputNumber"
+        min="1"
+        max="99"
+        maxlength="2"
+        size="2"
+      />
+      <label>
+        <input
+          type="checkbox"
+          name="Nummer mehrfach zulassen"
+          id="multipleNumberAllowed"
+        />
+        multiple
+      </label>
+      <div id="label">Activity:</div>
+      <div>
+        <textarea id="inputLabel" type="text" autocomplete="off"></textarea>
+      </div>
+      <div id="numberDialogButtons">
+        <button id="numberSaveButton">Save</button>
+        <button id="numberQuitButton">Cancel</button>
+      </div>
     </div>
-  </div>
 
-  <div id="incompleteStoryInfo" style="display:none">
-    <button id="closeIncompleteStoryInfo">X</button>
-    <br>
-  </div>
+    <div id="labelDialog" style="display: none">
+      <div id="labelName">Activity:</div>
+      <div>
+        <textarea
+          id="labelInputLabel"
+          type="text"
+          autocomplete="off"
+        ></textarea>
+      </div>
+      <div id="labelDialogButtons">
+        <button id="labelSaveButton">Save</button>
+        <button id="labelQuitButton">Cancel</button>
+      </div>
+    </div>
 
-  <div id="noContentOnCanvasInfo" style="display: none">
-    <button id="closeNoContentOnCanvasInfo">X</button>
-    <br>
-    <text>There currently is no content on the canvas.</text>
-    <text>Without content the canvas cannot be exported.</text>
-  </div>
+    <div id="keyboardShortcutInfo" style="display: none">
+      <button
+        id="keyboardShortcutInfoDialogButtonCancel"
+        style="float: right; margin-left: 5px"
+      >
+        X
+      </button>
+      <br />
+      <table id="keyboardTable">
+        <thead></thead>
+        <tbody>
+          <tr>
+            <td>Undo</td>
+            <td>ctrl + Z</td>
+          </tr>
+          <tr>
+            <td>Redo</td>
+            <td>ctrl + Y or ctrl + shift + Z</td>
+          </tr>
+          <tr>
+            <td>Select All</td>
+            <td>ctrl + A</td>
+          </tr>
+          <tr>
+            <td>Export as .dst</td>
+            <td>ctrl + S</td>
+          </tr>
+          <tr>
+            <td>Import from .dst</td>
+            <td>ctrl + L</td>
+          </tr>
+          <tr>
+            <td>Search for text (default browser funtion)</td>
+            <td>ctrl + F</td>
+          </tr>
+          <tr>
+            <td>Edit label</td>
+            <td>E</td>
+          </tr>
+          <tr>
+            <td>Copy/paste</td>
+            <td>ctrl + C, ctrl + V</td>
+          </tr>
+          <tr>
+            <td>Hand tool</td>
+            <td>H</td>
+          </tr>
+          <tr>
+            <td>Lasso tool</td>
+            <td>L</td>
+          </tr>
+          <tr>
+            <td>Space tool</td>
+            <td>S</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div id="versionInfo" style="display:none">
-    <button id="closeVersionDialog">X</button>
-    <br>
-    <text>Your Domain Story was created with modeler version</text>
-    <text id="importedVersion"></text>
-    <text>. This modeler is version</text>
-    <text id="modelerVersion"></text>
-    <text>. Please check release notes for possible compatibility problems.</text>
-  </div>
+    <div id="dictionaryDialog" style="display: none">
+      <div>
+        <div id="activityDictionary" style="float: left">
+          <text>Activities:</text>
+          <div id="activityDictionaryContainer"></div>
+        </div>
+        <div id="workobjectDictionary" style="float: left">
+          <text>Work Objects:</text>
+          <div id="workobjectDictionaryContainer"></div>
+        </div>
+      </div>
+      <div style="clear: both"></div>
+      <div id="dictionaryButtons">
+        <button id="closeDictionaryButtonSave">Save</button>
+        <button id="closeDictionaryButtonCancel">Cancel</button>
+      </div>
+    </div>
 
-  <div id="brokenDSTInfo" style="display:none">
-    <button id="brokenDSTDialogButtonCancel">X</button>
-    <br>
-    <text>Your .dst File is corrupted, there most likely was an error during export.</text>
-    <text>If the domain story was imported, some of your activities and Domain Elements might be missing.</text>
-  </div>
+    <div id="incompleteStoryInfo" style="display: none">
+      <button id="closeIncompleteStoryInfo">X</button>
+      <br />
+    </div>
 
-  <div id="brokenSVGInfo" style="display:none">
-    <button id="brokenSVGDialogButtonCancel">X</button>
-    <br>
-    <text>The .svg file you uploaded does not contain a Domain Story.</text>
-  </div>
+    <div id="noContentOnCanvasInfo" style="display: none">
+      <button id="closeNoContentOnCanvasInfo">X</button>
+      <br />
+      <text>There currently is no content on the canvas.</text>
+      <text>Without content the canvas cannot be exported.</text>
+    </div>
 
-  <script src="./app.js"></script>
-  <script src="dependencies/jquery.min.js"></script>
+    <div id="versionInfo" style="display: none">
+      <button id="closeVersionDialog">X</button>
+      <br />
+      <text>Your Domain Story was created with modeler version</text>
+      <text id="importedVersion"></text>
+      <text>. This modeler is version</text>
+      <text id="modelerVersion"></text>
+      <text
+        >. Please check release notes for possible compatibility problems.</text
+      >
+    </div>
 
-  <script>
+    <div id="brokenDSTInfo" style="display: none">
+      <button id="brokenDSTDialogButtonCancel">X</button>
+      <br />
+      <text
+        >Your .dst File is corrupted, there most likely was an error during
+        export.</text
+      >
+      <text
+        >If the domain story was imported, some of your activities and Domain
+        Elements might be missing.</text
+      >
+    </div>
 
-    /* from http://jsfiddle.net/jAYEt/2188/
-    */
-    var inputQuantity = [];
-    $(function () {
-      $(".numberID").each(function (i) {
-        inputQuantity[i] = this.defaultValue;
-        $(this).data("idx", i); // save this field's index to access later
+    <div id="brokenSVGInfo" style="display: none">
+      <button id="brokenSVGDialogButtonCancel">X</button>
+      <br />
+      <text>The .svg file you uploaded does not contain a Domain Story.</text>
+    </div>
+
+    <script type="module" src="/app/app.js"></script>
+    <script src="/dependencies/jquery.min.js"></script>
+
+    <script>
+      /* from http://jsfiddle.net/jAYEt/2188/
+       */
+      var inputQuantity = [];
+      $(function () {
+        $(".numberID").each(function (i) {
+          inputQuantity[i] = this.defaultValue;
+          $(this).data("idx", i); // save this field's index to access later
+        });
+        $(".numberID").on("keyup", function (e) {
+          var $field = $(this),
+            val = this.value,
+            $thisIndex = parseInt($field.data("idx"), 10); // retrieve the index
+          if (
+            (this.validity && this.validity.badInput) ||
+            isNaN(val) ||
+            $field.is(":invalid")
+          ) {
+            this.value = inputQuantity[$thisIndex];
+            return;
+          }
+          if (val.length > Number($field.attr("maxlength"))) {
+            val = val.slice(0, 2);
+            $field.val(val);
+          }
+          inputQuantity[$thisIndex] = val;
+        });
+        $(".incrementNumber").each(function (i) {
+          inputQuantity[i] = this.defaultValue;
+          $(this).data("idx", i); // save this field's index to access later
+        });
+        $(".incrementNumber").on("keyup", function (e) {
+          var $field = $(this),
+            val = this.value,
+            $thisIndex = parseInt($field.data("idx"), 10); // retrieve the index
+          if (
+            (this.validity && this.validity.badInput) ||
+            isNaN(val) ||
+            $field.is(":invalid")
+          ) {
+            this.value = inputQuantity[$thisIndex];
+            return;
+          }
+          if (val.length > Number($field.attr("maxlength"))) {
+            val = val.slice(0, 2);
+            $field.val(val);
+          }
+          inputQuantity[$thisIndex] = val;
+        });
       });
-      $(".numberID").on("keyup", function (e) {
-        var $field = $(this),
-          val = this.value,
-          $thisIndex = parseInt($field.data("idx"), 10); // retrieve the index
-        if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid")) {
-          this.value = inputQuantity[$thisIndex];
-          return;
-        }
-        if (val.length > Number($field.attr("maxlength"))) {
-          val = val.slice(0, 2);
-          $field.val(val);
-        }
-        inputQuantity[$thisIndex] = val;
-      });
-      $(".incrementNumber").each(function (i) {
-        inputQuantity[i] = this.defaultValue;
-        $(this).data("idx", i); // save this field's index to access later
-      });
-      $(".incrementNumber").on("keyup", function (e) {
-        var $field = $(this),
-          val = this.value,
-          $thisIndex = parseInt($field.data("idx"), 10); // retrieve the index
-        if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid")) {
-          this.value = inputQuantity[$thisIndex];
-          return;
-        }
-        if (val.length > Number($field.attr("maxlength"))) {
-          val = val.slice(0, 2);
-          $field.val(val);
-        }
-        inputQuantity[$thisIndex] = val;
-      });
-    });
-  </script>
-  <!-- <script src="./domain-story-modeler/features/runtime-quality-analysis/index.js"></script> -->
-  <script type="text/x-dot-template" id="revealjs-template">
+    </script>
+    <!-- <script src="./domain-story-modeler/features/runtime-quality-analysis/index.js"></script> -->
+    <script type="text/x-dot-template" id="revealjs-template">
       <!doctype html>
       <html>
         <head>
@@ -809,6 +935,5 @@
         </body>
       </html>
     </script>
-</body>
-
+  </body>
 </html>

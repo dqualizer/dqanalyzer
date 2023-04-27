@@ -71,11 +71,11 @@ export function getAllWorkObjects() {
 }
 
 export function getAllCanvasObjects() {
-  let allObjects=[];
-  let groupObjects=[];
+  let allObjects = [];
+  let groupObjects = [];
 
   // check for every child of the canvas wether it is a group or not
-  let i=0;
+  let i = 0;
   for (i = 0; i < elementRegistry.length; i++) {
     let type = elementRegistry[i].type;
     if (type.includes(GROUP)) {
@@ -110,11 +110,11 @@ export function getAllCanvasObjects() {
 
 // returns all groups on the canvas and inside other groups
 export function getAllGroups() {
-  let groupObjects=[];
-  let allObjects=[];
+  let groupObjects = [];
+  let allObjects = [];
 
   // check for every child of the canvas wether it is a group or not
-  let i=0;
+  let i = 0;
   for (i = 0; i < elementRegistry.length; i++) {
     let type = elementRegistry[i].type;
     if (type.includes(GROUP)) {
@@ -126,8 +126,8 @@ export function getAllGroups() {
       allObjects.push(elementRegistry[i]);
     }
   }
-  for (i=0; i<groupObjects.length;i++) {
-    let currentgroup=groupObjects[i];
+  for (i = 0; i < groupObjects.length;i++) {
+    let currentgroup = groupObjects[i];
     currentgroup.children.forEach(child => {
       if (child.type.includes(GROUP)) {
         groupObjects.push(child);

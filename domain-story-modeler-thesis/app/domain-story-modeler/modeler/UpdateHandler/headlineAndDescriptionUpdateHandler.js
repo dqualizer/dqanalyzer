@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 import { setTitleInputLast, setDescriptionInputLast } from '../../features/import/import';
 import { changeWebsiteTitle } from '../../util/helpers';

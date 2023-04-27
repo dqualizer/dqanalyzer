@@ -56,7 +56,7 @@ export function downloadPNG(withTitle) {
     document.body.removeChild(ele);
 
     // image source has to be removed to circumvent browser caching
-    image.src ='';
+    image.src = '';
   };
   image.onchange = image.onload;
 
@@ -91,7 +91,7 @@ export function downloadPNG(withTitle) {
     document.body.removeChild(ele);
 
     // image source has to be removed to circumvent browser caching
-    image.src ='';
+    image.src = '';
   }
 
 
@@ -102,7 +102,7 @@ export function downloadPNG(withTitle) {
     let translate = viewport.getAttribute('translate');
 
     const layerRes = layerResizers[0];
-    const layerOver= layerOverlays[0];
+    const layerOver = layerOverlays[0];
 
     const layerResizersParent = layerResizers[0].parentNode;
     const layerOverlaysParent = layerOverlays[0].parentNode;
@@ -171,7 +171,7 @@ export function calculateWidthAndHeight(xLeft, xRight, yUp, yDown) {
     xLeft -= 150;
     xRight += 150;
   }
-  return [height, width];
+  return [ height, width ];
 }
 
 function prepareSVG(svg, layertBase, withTitle) {
@@ -193,8 +193,8 @@ function prepareSVG(svg, layertBase, withTitle) {
   let bounds ;
   if (withTitle) {
     height += extraHeight;
-    
-      bounds = 'width="' +
+
+    bounds = 'width="' +
       width +
       '" height="' +
       height +
@@ -209,7 +209,7 @@ function prepareSVG(svg, layertBase, withTitle) {
       '" ';
   }
   else {
-      bounds = 'width="' +
+    bounds = 'width="' +
       width +
       '" height="' +
       height +
@@ -222,7 +222,7 @@ function prepareSVG(svg, layertBase, withTitle) {
       ' ' +
       height +
       '" ';
-  } 
+  }
 
   let dataStart = svg.substring(0, viewBoxIndex);
   viewBoxIndex = svg.indexOf('style="');
@@ -233,8 +233,8 @@ function prepareSVG(svg, layertBase, withTitle) {
 
   let insertIndex = svg.indexOf('<g class="viewport">') + 20;
 
-  if(withTitle) {
-    svg = [svg.slice(0, insertIndex), insertText, svg.slice(insertIndex)].join(
+  if (withTitle) {
+    svg = [ svg.slice(0, insertIndex), insertText, svg.slice(insertIndex) ].join(
       ''
     );
   }
@@ -263,7 +263,7 @@ function URIHashtagFix(svg) {
       if (tem != null)
         return { name: tem[1].replace('OPR', 'Opera'), version: tem[2] };
     }
-    M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+    M = M[2] ? [ M[1], M[2] ] : [ navigator.appName, navigator.appVersion, '-?' ];
     if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
     return { name: M[0], version: M[1] };
   })();
@@ -354,9 +354,9 @@ function findMostOuterElements(svg, withTitle) {
     }
   }
 
-   if(withTitle) {
+  if (withTitle) {
     yUp -= 75; // we need to adjust yUp to have space for the title and description
-   }
+  }
 
   return {
     xLeft: xLeft,

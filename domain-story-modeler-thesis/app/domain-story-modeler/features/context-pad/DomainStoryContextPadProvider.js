@@ -1,6 +1,6 @@
 'use strict';
 
-import inherits from 'inherits';
+import inherits from 'inherits-browser';
 
 import ContextPadProvider from 'bpmn-js/lib/features/context-pad/ContextPadProvider';
 import Picker from 'vanilla-picker';
@@ -8,6 +8,7 @@ import Picker from 'vanilla-picker';
 // THESIS-START
 import { createResilienceTemplate, removeResilienceTemplateForNode } from '../runtime-quality-analysis/rqa-test/resilience/ResilienceTemplateView';
 import { createLoadTestTemplate } from '../runtime-quality-analysis/rqa-test/performance/LoadTestTemplateView';
+
 // THESIS-END
 
 import {
@@ -45,7 +46,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       const allGroups = getAllGroups();
       const allCanvasObjects = getAllCanvasObjects();
 
-      const isDone=pickerFunction(allCanvasObjects, color);
+      const isDone = pickerFunction(allCanvasObjects, color);
 
       if (!isDone) {
         pickerFunction(allGroups, color);
@@ -70,7 +71,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
 
         commandStack.execute('element.colorChange', context);
         makeDirty();
-        isDone=true;
+        isDone = true;
       }
     });
     return isDone;
@@ -84,8 +85,8 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
     /**
      * Maybe start checking here if there are any elements on the canvas ?
      */
-    
-    
+
+
     /**
      * Returns all icons in a dictionary from all_Icons.js
      */
@@ -95,16 +96,16 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
     startConnect = function(event, element, autoActivate) {
       connect.start(event, element, autoActivate);
     };
-    
+
 
     // const modal_loadtest = document.getElementById('modal_loadtest');
     // const modal_monitoring = document.getElementById('modal_monitoring');
-  
+
     // let ids = [];
     // let idExists = false;
-    
+
     // if (element.type.includes(EXPERIMENT_NAME)) {
-      
+
     //   let elementContainer = document.getElementById('runtimeAnalysisSummaryContainer');
     //   let elementName = element.id;
     //   console.log(elementName);
@@ -142,8 +143,9 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
       addInputFields(actions, element);
       addLoadTest(actions);
+
       // addMonitoring(actions);
-      
+
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addActors(appendAction, actions);
@@ -159,13 +161,14 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
       addInputFields(actions, element);
       addLoadTest(actions);
+
       // addMonitoring(actions);´`
-      
+
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
       addWorkObjects(appendAction, actions);
       addChangeActorTypeMenu(actions);
-      
+
     }
 
     else if (element.type.includes(GROUP)) {
@@ -179,7 +182,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
           action: {
             click: function(event, element) {
               selectedID = element.id;
-              console.log("Test");
+              console.log('Test');
               removeResilienceTemplateForNode(selectedID);
               modeling.removeGroup(element);
               makeDirty();
@@ -204,7 +207,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
           action: {
             click: function(event, element) {
               selectedID = element.id;
-              console.log("Test");
+              console.log('Test');
               removeResilienceTemplateForNode(selectedID);
               modeling.removeElements({ element });
               makeDirty();
@@ -299,7 +302,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
         className: 'icon-domain-story-chaosexperiment',
         title: translate('Resilience Test'),
         action: {
-          click: function (event, element) {
+          click: function(event, element) {
             selectedID = element.id;
             createResilienceTemplate(selectedID);
           }
@@ -307,7 +310,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
     });
   }
-  
+
   function addLoadTest(actions) {
     assign(actions, {
       'analysis': {
@@ -315,7 +318,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
         className: 'icon-domain-story-loadtest',
         title: translate('Load Test'),
         action: {
-          click: function (event, element) {
+          click: function(event, element) {
             selectedID = element.id;
             createLoadTestTemplate(selectedID);
           }
@@ -323,16 +326,17 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
     });
   }
-  
-  function addMonitoring(actions) {
+
+  function _addMonitoring(actions) {
     assign(actions, {
       'monitoring': {
         group: 'type',
         className: 'icon-domain-story-monitoring',
         title: translate('Monitoring'),
         action: {
-          click: function (element) {
-            console.log("Create Monitoring");
+          click: function(element) {
+            console.log('Create Monitoring');
+
             // createResilienceTemplate(element);
           }
         }
@@ -441,7 +445,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
 
       let shape = elementFactory.createShape(assign({ type: type }, options));
       let context = {
-        elements: [shape],
+        elements: [ shape ],
         hints: {},
         source:element
       };

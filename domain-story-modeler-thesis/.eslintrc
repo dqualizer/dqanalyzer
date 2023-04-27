@@ -1,14 +1,17 @@
 {
-    "extends": "plugin:bpmn-io/es6",
-    "env": {
-        "browser": true,
-        "mocha": true
-    },
-    "globals": {
-        "assert": true,
-        "expect": true
-    },
-    "rules": {
-        "no-fallthrough": "off"
-    }
+  "extends": "plugin:bpmn-io/browser",
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "globals": {
+    "assert": true,
+    "expect": true
+  },
+  "rules": {
+    "no-fallthrough": "off"
+  }
 }

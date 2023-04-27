@@ -1,6 +1,6 @@
 'use strict';
 
-import inherits from 'inherits';
+import inherits from 'inherits-browser';
 
 import {
   pick,
@@ -50,11 +50,11 @@ export default function DomainStoryUpdater(eventBus, bpmnjs) {
     }
 
     // save custom element position
-    assign(businessObject, pick(shape, ['x', 'y']));
+    assign(businessObject, pick(shape, [ 'x', 'y' ]));
 
     // save custom element size if resizable
     if (isDomainStoryGroup(shape)) {
-      assign(businessObject, pick(shape, ['height', 'width']));
+      assign(businessObject, pick(shape, [ 'height', 'width' ]));
 
       // rework the child-parent relations if a group was moved, such that all Objects that are visually in the group are also associated with it
       // since we do not have access to the standard-canvas object here, we cannot use the function correctGroupChildren() from DSLabelUtil
@@ -174,4 +174,4 @@ export default function DomainStoryUpdater(eventBus, bpmnjs) {
 
 inherits(DomainStoryUpdater, CommandInterceptor);
 
-DomainStoryUpdater.$inject = ['eventBus', 'bpmnjs'];
+DomainStoryUpdater.$inject = [ 'eventBus', 'bpmnjs' ];

@@ -6,15 +6,9 @@ services:
     build: .
     image: egon.io
     ports:
-    - "9080:80"
-    #links:
-    #  - "backend:be"
-
-  backend:
-    image: api
-    build: ./api
-    ports:
-      - "3000:3000"
+      - "9080:80"
+    environment:
+      - VITE_BACKEND_URL=http://localhost:8070/
 
   rabbit:
     container_name: "api-rabbit"

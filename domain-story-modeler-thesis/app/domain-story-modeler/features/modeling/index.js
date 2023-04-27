@@ -39,7 +39,7 @@ export default {
     ChangeSupportModule,
     SpaceToolModule
   ],
-  domainStoryRules: ['type', DomainStoryRules],
+  domainStoryRules: [ 'type', DomainStoryRules ],
   bpmnFactory: [ 'type', BpmnFactory ],
   bpmnUpdater: [ 'type', BpmnUpdater ],
   layouter: [ 'type', BpmnLayouter ],
