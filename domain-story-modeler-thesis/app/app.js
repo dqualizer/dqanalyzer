@@ -76,9 +76,6 @@ import {
 import DSElementHandler from './domain-story-modeler/modeler/UpdateHandler/DSElementHandler';
 import headlineAndDescriptionUpdateHandler from './domain-story-modeler/modeler/UpdateHandler/headlineAndDescriptionUpdateHandler';
 
-// eslint-disable-next-line
-console.log(new URL('/api/rqa', import.meta.env.VITE_BACKEND_URL));
-
 const modeler = new DomainStoryModeler({
   container: '#canvas',
   keyboard: {

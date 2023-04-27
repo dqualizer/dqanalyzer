@@ -4,7 +4,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import eslint from 'vite-plugin-eslint';
 
 export default ({ mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
+  const env = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
 
   return defineConfig({
     plugins: [
@@ -35,5 +35,11 @@ export default ({ mode }) => {
       }),
       eslint(),
     ],
+    define: {
+      __VITE_BACKEND_URL__: JSON.stringify(env.VITE_BACKEND_URL)
+    },
+    build: {
+      minify: false,
+    },
   });
 };
