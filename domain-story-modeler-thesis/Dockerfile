@@ -17,7 +17,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run bundle
-CMD [ "npm", "start" ]
 
-# FROM nginx:1.22-alpine AS runtime
-# COPY --from=builder /app/dist /usr/share/nginx/html
+FROM nginx:1.22-alpine AS runtime
+COPY --from=builder /app/dist /usr/share/nginx/html
