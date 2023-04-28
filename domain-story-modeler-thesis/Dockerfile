@@ -20,3 +20,16 @@ RUN npm run bundle
 
 FROM nginx:1.22-alpine AS runtime
 COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Adding the env-File and the Shell-Script
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env .
+
+# Add bash
+RUN apk add --no-cache bash
+
+RUN chmod +x env.sh
+
+# Executing the Shell-Skript
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]

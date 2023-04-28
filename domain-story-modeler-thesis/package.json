@@ -11,7 +11,7 @@
     "auto-test": "npm test -- --auto-watch --no-single-run",
     "test": "karma start",
     "bundle": "vite build",
-    "dev": "vite",
+    "dev": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && vite",
     "all": "run-s lint test bundle",
     "start": "vite --host",
     "preview": "vite preview --port 8080"

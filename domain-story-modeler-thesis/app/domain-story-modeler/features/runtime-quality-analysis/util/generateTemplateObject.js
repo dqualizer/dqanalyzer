@@ -44,9 +44,7 @@ const pushToQueue = () => {
   };
 
   // eslint-disable-next-line no-undef
-  const backend_url = new URL('/api/rqa', import.meta.env.VITE_BACKEND_URL || __VITE_BACKEND_URL__);
-
-  console.log(`BACKEND_URL: ${backend_url}`);
+  const backend_url = new URL('/api/rqa', window._env_.BACKEND_URL || __VITE_BACKEND_URL__);
 
   fetch(backend_url, requestOptions)
     .then((response) => response.text())
