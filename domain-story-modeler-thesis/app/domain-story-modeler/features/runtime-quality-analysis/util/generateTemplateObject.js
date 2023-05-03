@@ -16,17 +16,18 @@ export const createDisabledGenerateBtn = () => {
 
   generateAndPush__btn.addEventListener('click', () => {
     console.log('event_handler');
+
     pushToQueue();
-    createToastNotification('Congrats! Your test is about to be executed. Wait for your results to arrive!', 'success');
-    setTimeout(() => {
-      createAnalysisResultsView();
-    }, 5000);
+    createToastNotification('Congrats! Your test is about to be executed.', 'success');
+
+    createAnalysisResultsView();
   });
 
   generateButtonContainer.appendChild(generateAndPush__btn);
   getSummaryContainer.appendChild(generateButtonContainer);
 };
 
+// eslint-disable-next-line no-undef
 const pushToQueue = () => {
   console.log('pushing to queue');
   let rpa_definition = localStorage.getItem('runtimeQualityAnalysis');
@@ -43,7 +44,6 @@ const pushToQueue = () => {
 
   };
 
-  // eslint-disable-next-line no-undef
   const backend_url = new URL('/api/rqa', window._env_.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL);
 
   fetch(backend_url, requestOptions)
