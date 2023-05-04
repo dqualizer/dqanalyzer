@@ -8,12 +8,12 @@ export class LoadTestTemplate {
      * @param {*} numberOfSimulatedRequests
      */
   constructor(
-    artifact,
-    description,
-    stimulus,
-    parametrization,
-    responseMeasure,
-    result_metrics
+      artifact,
+      description,
+      stimulus,
+      parametrization,
+      responseMeasure,
+      result_metrics
   ) {
     this.artifact = artifact;
     this.description = description;

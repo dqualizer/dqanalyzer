@@ -5,7 +5,7 @@ import { labelPosition } from '../labeling/position';
 
 
 let numberRegistry = [];
-let multipleNumberRegistry = [false];
+let multipleNumberRegistry = [ false ];
 
 // defines the box for activity numbers
 export function numberBoxDefinitions(element) {
@@ -30,7 +30,7 @@ export function numberBoxDefinitions(element) {
 export function generateAutomaticNumber(elementActivity, commandStack) {
   let semantic = elementActivity.businessObject;
   let activiesFromActors = [];
-  let usedNumbers = [0];
+  let usedNumbers = [ 0 ];
   let wantedNumber = -1;
 
   activiesFromActors = getActivitesFromActors();
@@ -81,7 +81,7 @@ export function updateExistingNumbersAtGeneration(activiesFromActors, wantedNumb
 export function updateExistingNumbersAtEditing(activiesFromActors, wantedNumber, eventBus) {
 
   // get a sorted list of all activities that could need changing
-  let sortedActivities = [[]];
+  let sortedActivities = [ [] ];
   activiesFromActors.forEach(activity => {
     if (!sortedActivities[activity.businessObject.number]) {
       sortedActivities[activity.businessObject.number] = [];

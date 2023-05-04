@@ -58,7 +58,7 @@ export class Dict {
 
   get(key) {
     const found = this.entries.filter(entry => entry.key === key);
-    return found[0]? found[0].value : null;
+    return found[0] ? found[0].value : null;
   }
 }
 

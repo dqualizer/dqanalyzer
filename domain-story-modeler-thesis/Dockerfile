@@ -1,16 +1,35 @@
-# Build stage
-FROM node:16-alpine AS build-stage
+FROM node:19-alpine AS base
+
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm ci
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
 RUN npm run bundle
 
+FROM nginx:1.22-alpine AS runtime
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Runtime stage
-FROM nginx:1.22-alpine
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+# Adding the env-File and the Shell-Script
+WORKDIR /usr/share/nginx/html
+COPY ./env.sh .
+COPY .env .
+
+# Add bash
+RUN apk add --no-cache bash
+
+RUN chmod +x env.sh
+
+# Executing the Shell-Skript
+CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]

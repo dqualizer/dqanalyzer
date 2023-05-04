@@ -103,7 +103,7 @@ function createCustomConf(includeNecessary) {
  */
 
 const allIcons_conf = {
-  actors: ['Person', 'Group', 'System', 'Pet'],
+  actors: [ 'Person', 'Group', 'System', 'Pet' ],
   workObjects: [
     'Place',
     'Flag',
@@ -199,6 +199,6 @@ const allIcons_conf = {
  * Default Iconset
  */
 export const default_conf = {
-  actors: ['Person', 'Group', 'System'],
-  workObjects: ['Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info']
+  actors: [ 'Person', 'Group', 'System' ],
+  workObjects: [ 'Document', 'Folder', 'Call', 'Email', 'Conversation', 'Info' ]
 };

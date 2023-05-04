@@ -84,11 +84,11 @@ export function initTypeDictionaries(actors, workObjetcs) {
     workObjetcs = default_conf.workObjects;
   }
 
-  let allTypes=new Dict();
+  let allTypes = new Dict();
   allTypes.addEach(all_icons);
   allTypes.appendDict(getAppendedIconDictionary());
 
-  for (let i=0; i < actors.length; i++) {
+  for (let i = 0; i < actors.length; i++) {
     const key = ACTOR + actors[i];
     actorIconDictionary.add(allTypes.get(actors[i]), key);
   }
@@ -98,7 +98,7 @@ export function initTypeDictionaries(actors, workObjetcs) {
     registerIcon(actor, 'icon-domain-story-' + name.toLowerCase());
   });
 
-  for (let i=0; i < workObjetcs.length; i++) {
+  for (let i = 0; i < workObjetcs.length; i++) {
     const key = WORKOBJECT + workObjetcs[i];
     workObjectDictionary.add(allTypes.get(workObjetcs[i]), key);
   }

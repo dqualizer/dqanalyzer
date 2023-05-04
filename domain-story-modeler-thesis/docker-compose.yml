@@ -6,25 +6,19 @@ services:
     build: .
     image: egon.io
     ports:
-    - "9080:80"
-    #links:
-    #  - "backend:be"
+      - "9080:80"
+    environment:
+      - BACKEND_URL=http://localhost:8888/
 
-  backend:
-    image: api
-    build: ./api
-    ports:
-      - "3000:3000"
-
-  rabbit:
-    container_name: "api-rabbit"
-    image: rabbitmq:3-management
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      interval: 2s
-      timeout: 5s
-      retries: 20
-      start_period: 5s
+  # rabbit:
+  #   container_name: "api-rabbit"
+  #   image: rabbitmq:3-management
+  #   ports:
+  #     - "15672:15672"
+  #     - "5672:5672"
+  #   healthcheck:
+  #     test: rabbitmq-diagnostics check_port_connectivity
+  #     interval: 2s
+  #     timeout: 5s
+  #     retries: 20
+  #     start_period: 5s

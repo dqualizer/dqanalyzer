@@ -59,11 +59,11 @@ export default function DSActivityHandler(commandStack, eventBus) {
 
     this.preExecute = function(context) {
       context.oldNumber = context.businessObject.number;
-      context.oldWaypoints= context.element.waypoints;
+      context.oldWaypoints = context.element.waypoints;
       context.name = context.businessObject.name;
 
       if (!context.oldNumber) {
-        context.oldNumber=0;
+        context.oldNumber = 0;
       }
       modeling.updateNumber(context.businessObject, context.newNumber);
     };
@@ -75,7 +75,7 @@ export default function DSActivityHandler(commandStack, eventBus) {
       let newWaypoints = [];
       let waypoints = element.waypoints;
 
-      for (let i=waypoints.length-1; i>=0;i--) {
+      for (let i = waypoints.length - 1; i >= 0;i--) {
         newWaypoints.push(waypoints[i]);
       }
 

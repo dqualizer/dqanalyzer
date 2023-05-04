@@ -20,7 +20,7 @@ import { existingLoadTestsView } from '../performance/ExistingLoadTestsView';
 /**
  * Get Elements
  */
-let elementContainer = document.getElementById('runtimeAnalysisSummaryContainer');
+let _elementContainer = document.getElementById('runtimeAnalysisSummaryContainer');
 let modal__container = document.getElementById('modal__container');
 
 
@@ -931,3 +931,6 @@ export const createResilienceTemplate = (selectedID) => {
   }
 };
 
+export const removeResilienceTemplateForNode = (_node) => {
+  console.log('TODO');
+};

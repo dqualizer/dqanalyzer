@@ -70,11 +70,11 @@ export function labelPositionX(startPoint, endPoint) {
     scaledangle = angle - 270;
     offsetX = 5 - scaledangle / 6;
   }
-  return offsetX + (startPoint.x + endPoint.x)/2;
+  return offsetX + (startPoint.x + endPoint.x) / 2;
 }
 
 // calculate the Y position of the label
-export function labelPositionY(startPoint, endPoint, lines=1) {
+export function labelPositionY(startPoint, endPoint, lines = 1) {
   let angle = Math.angleBetween(startPoint, endPoint);
   let offsetY = 0;
   let scaledangle = 0;
@@ -101,5 +101,5 @@ export function labelPositionY(startPoint, endPoint, lines=1) {
     scaledangle = angle - 270;
     offsetY = -scaledangle / 9 * lines;
   }
-  return offsetY + (startPoint.y + endPoint.y)/2;
+  return offsetY + (startPoint.y + endPoint.y) / 2;
 }

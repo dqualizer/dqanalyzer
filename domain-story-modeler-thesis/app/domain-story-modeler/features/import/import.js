@@ -172,8 +172,8 @@ export function restoreTitleFromFileName(filename, isSVG) {
   let filenameWithoutDateSuffix = filename.replace(isSVG ? svgRegex : dstRegex,
     ''
   );
-  if (filenameWithoutDateSuffix.includes(isSVG? svgSuffix : dstSuffix, '')) {
-    filenameWithoutDateSuffix = filenameWithoutDateSuffix.replace(isSVG? svgSuffix : dstSuffix, '');
+  if (filenameWithoutDateSuffix.includes(isSVG ? svgSuffix : dstSuffix, '')) {
+    filenameWithoutDateSuffix = filenameWithoutDateSuffix.replace(isSVG ? svgSuffix : dstSuffix, '');
   }
   title = filenameWithoutDateSuffix;
   return title;

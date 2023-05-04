@@ -14,7 +14,7 @@ export default function ReplaceMenuProvider(modeling) {
   this._modeling = modeling;
 }
 
-ReplaceMenuProvider.$inject = ['modeling'];
+ReplaceMenuProvider.$inject = [ 'modeling' ];
 
 /**
  * Get all entries from replaceOptions for the given element and apply filters

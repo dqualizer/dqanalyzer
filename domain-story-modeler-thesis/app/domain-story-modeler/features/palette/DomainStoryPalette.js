@@ -98,10 +98,10 @@ function appendCSSStyleCheat(customIcons) {
       '.icon-domain-story-' +
       name.toLowerCase() +
       '::before{' +
-      ' display: block;'+
+      ' display: block;' +
       ' content: url("data:image/svg+xml;utf8,' +
        wrapSRCInSVG(src) +
-      '");'+
+      '");' +
       ' margin: 3px;}';
       sheetEl.sheet.insertRule(iconStyle, sheetEl.sheet.cssRules.length);
     }
@@ -196,7 +196,7 @@ function addCanvasObjectTypes(actorType, createAction, actions, className) {
   let icon = getIconForType(actorType);
 
   let action = [];
-  action['domainStory-' +className + name] = createAction(
+  action['domainStory-' + className + name] = createAction(
     actorType,
     className,
     icon,
@@ -223,7 +223,7 @@ function convertLegacyAppendedIconsToDict(customIcons) {
 // For some reason its important to use ' in the content for the Palette and ContextPad
 // Do not change!
 function wrapSRCInSVG(src) {
-  let svg = "<svg viewBox='0 0 22 22' width='22' height='22' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>"+
-  "<image width='22' height='22' xlink:href='"+ src+ "'/></svg>";
+  let svg = "<svg viewBox='0 0 22 22' width='22' height='22' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>" +
+  "<image width='22' height='22' xlink:href='" + src + "'/></svg>";
   return svg;
 }

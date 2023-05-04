@@ -132,18 +132,18 @@ function cleanWorkObjecDictionary() {
 }
 
 function dictionaryDifferences(activityNames, oldActivityDictionary, workObjectNames, oldWorkobjectDictionary, commandStack) {
-  let i=0;
-  for (i=0;i<oldActivityDictionary.length;i++) {
+  let i = 0;
+  for (i = 0;i < oldActivityDictionary.length;i++) {
     if (!activityNames[i]) {
-      activityNames[i]='';
+      activityNames[i] = '';
     }
     if (!((activityNames[i].includes(oldActivityDictionary[i])) && (oldActivityDictionary[i].includes(activityNames[i])))) {
       massChangeNames(oldActivityDictionary[i], activityNames[i], ACTIVITY, commandStack);
     }
   }
-  for (i=0;i<oldWorkobjectDictionary.length;i++) {
+  for (i = 0;i < oldWorkobjectDictionary.length;i++) {
     if (!workObjectNames[i]) {
-      workObjectNames[i]='';
+      workObjectNames[i] = '';
     }
     if (!((workObjectNames[i].includes(oldWorkobjectDictionary[i])) && (oldWorkobjectDictionary[i].includes(workObjectNames[i])))) {
       massChangeNames(oldWorkobjectDictionary[i], workObjectNames[i], WORKOBJECT, commandStack);
@@ -155,7 +155,7 @@ function dictionaryDifferences(activityNames, oldActivityDictionary, workObjectN
 
 function massChangeNames(oldValue, newValue, type, commandStack) {
   let allObjects = getAllCanvasObjects();
-  let allRelevantObjects=[];
+  let allRelevantObjects = [];
 
   allObjects.forEach(element =>{
     if (element.type.includes(type) && element.businessObject.name == oldValue) {

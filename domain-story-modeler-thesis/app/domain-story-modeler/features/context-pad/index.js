@@ -15,7 +15,7 @@ export default {
     'contextPadProvider',
     'replaceMenuProvider',
   ],
-  elementFactoryBpmn: ['type', ElementFactory],
-  commandStack: ['type', CommandStack],
-  modeling : ['type', DSModeling]
+  elementFactoryBpmn: [ 'type', ElementFactory ],
+  commandStack: [ 'type', CommandStack ],
+  modeling : [ 'type', DSModeling ]
 };

@@ -1,1 +1,4 @@
 dist/
+test/
+Gruntfile.js
+karma.conf.js
