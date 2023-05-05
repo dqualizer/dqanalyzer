@@ -9,7 +9,6 @@ import $ from 'jquery';
  */
 export const getNodeName = (selectedID) => {
   let nodeName = $(`[data-element-id=${selectedID}]`).get(0);
-  console.log(nodeName.children[0]);
   return nodeName.children[0].children[1].textContent;
 };
 

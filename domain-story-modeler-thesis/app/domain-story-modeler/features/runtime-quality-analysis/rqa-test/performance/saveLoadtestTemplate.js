@@ -36,6 +36,12 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
   let getResultNinetyFivePercentileElement = document.getElementById(`percentileNinetyFive__input_${selectedID}`);
   let getResultNinetyFivePercentile = getResultNinetyFivePercentileElement.checked;
 
+  let getMappedServiceElement = document.getElementById(`mappedServiceSelectElement_${selectedID}`);
+  let getMappedService = getMappedServiceElement.options[getMappedServiceElement.selectedIndex].value;
+
+  let getMappedActivityElement = document.getElementById(`mappedActivitySelectElement_${selectedID}`);
+  let getMappedActivity = getMappedActivityElement.options[getMappedActivityElement.selectedIndex].value;
+
   if (verifyMandatory(
     selectedID,
     getStimulus,
@@ -43,23 +49,23 @@ export const saveLoadTestTemplateToLocalStorage = (selectedID) => {
     getResponseTime__satisfied,
     getResponseTime__tolerated,
     getResponseTime__frustrated,
-
     getResultResponseTime,
     getResultNinetyPercentile,
-    getResultNinetyFivePercentile)) {
+    getResultNinetyFivePercentile,
+    getMappedService,
+    getMappedActivity,
+  )) {
 
     if (getGenerateAndPush__btn.disabled) {
       getGenerateAndPush__btn.disabled = false;
     }
 
-    const regexId = /\((.*?)\)/;
-    const matchesId = regexId.exec(getNodeName(selectedID));
     const regexDescription = /^\s*([^(]+)/;
     const matchesDescription = regexDescription.exec(getNodeName(selectedID));
 
     let artifact = {
-      object: 'id1',
-      activity: matchesId[1].trim()
+      object: getMappedService,
+      activity: getMappedActivity
     };
 
     let description = matchesDescription[1];
@@ -263,66 +269,71 @@ const verifyMandatory = (
     responseTime__frustrated__checked,
     resultResponseTime__provided,
     resultNinetyPercentile__provided,
-    resultNinetyFivePercentile__provided) => {
+    resultNinetyFivePercentile__provided,
+    mappedService,
+    mappedActivity
+) => {
 
+  if (mappedService && mappedActivity) {
 
-  if (stimulus && (accuracy > 0) &&
-    (responseTime__satisfied__checked || responseTime__tolerated__checked || responseTime__frustrated__checked)
-    && (resultResponseTime__provided || resultNinetyPercentile__provided || resultNinetyFivePercentile__provided)) {
+    if (stimulus && (accuracy > 0) &&
+      (responseTime__satisfied__checked || responseTime__tolerated__checked || responseTime__frustrated__checked)
+      && (resultResponseTime__provided || resultNinetyPercentile__provided || resultNinetyFivePercentile__provided)) {
 
-    if (stimulus === 'Load Peak') {
-      let getHighestLoad__highBtn = document.getElementById(`highestLoad__high__btn_${selectedID}`);
-      let getHighestLoad__high = getHighestLoad__highBtn.classList.contains('active');
+      if (stimulus === 'Load Peak') {
+        let getHighestLoad__highBtn = document.getElementById(`highestLoad__high__btn_${selectedID}`);
+        let getHighestLoad__high = getHighestLoad__highBtn.classList.contains('active');
 
-      let getHighestLoad__veryHighBtn = document.getElementById(`highestLoad__veryHigh__btn${selectedID}`);
-      let getHighestLoad__veryHigh = getHighestLoad__veryHighBtn.classList.contains('active');
+        let getHighestLoad__veryHighBtn = document.getElementById(`highestLoad__veryHigh__btn${selectedID}`);
+        let getHighestLoad__veryHigh = getHighestLoad__veryHighBtn.classList.contains('active');
 
-      let getHighestLoad__extremeBtn = document.getElementById(`load__extreme__btn${selectedID}`);
-      let getHighestLoad__extreme = getHighestLoad__extremeBtn.classList.contains('active');
+        let getHighestLoad__extremeBtn = document.getElementById(`load__extreme__btn${selectedID}`);
+        let getHighestLoad__extreme = getHighestLoad__extremeBtn.classList.contains('active');
 
-      let getTimeToHighest__slowBtn = document.getElementById(`load__low__btn_${selectedID}`);
-      let getTimeToHighest__slow = getTimeToHighest__slowBtn.classList.contains('active');
+        let getTimeToHighest__slowBtn = document.getElementById(`load__low__btn_${selectedID}`);
+        let getTimeToHighest__slow = getTimeToHighest__slowBtn.classList.contains('active');
 
-      let getTimeToHighest__fastBtn = document.getElementById(`load__medium__btn_${selectedID}`);
-      let getTimeToHighest__fast = getTimeToHighest__fastBtn.classList.contains('active');
+        let getTimeToHighest__fastBtn = document.getElementById(`load__medium__btn_${selectedID}`);
+        let getTimeToHighest__fast = getTimeToHighest__fastBtn.classList.contains('active');
 
-      let getTimeToHighest__veryFastBtn = document.getElementById(`load__high__btn${selectedID}`);
-      let getTimeToHighest__veryFast = getTimeToHighest__veryFastBtn.classList.contains('active');
+        let getTimeToHighest__veryFastBtn = document.getElementById(`load__high__btn${selectedID}`);
+        let getTimeToHighest__veryFast = getTimeToHighest__veryFastBtn.classList.contains('active');
 
-      if ((getHighestLoad__high || getHighestLoad__veryHigh || getHighestLoad__extreme)
-        && (getTimeToHighest__slow || getTimeToHighest__fast || getTimeToHighest__veryFast)) {
-        return true;
-      } else {
-        return false;
+        if ((getHighestLoad__high || getHighestLoad__veryHigh || getHighestLoad__extreme)
+          && (getTimeToHighest__slow || getTimeToHighest__fast || getTimeToHighest__veryFast)) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (stimulus === 'Load Increase') {
+        let getTypeOfIncreaseElement = document.getElementById(`loadIncrease__select_${selectedID}`);
+        let getTypeOfIncrease = getTypeOfIncreaseElement.value;
+
+        if (getTypeOfIncrease) {
+          return true;
+        } else {
+          return false;
+        }
+      } else if (stimulus === 'Constant Load') {
+        let getBaseLoad__lowBtn = document.getElementById(`baseLoad__low__btn${selectedID}`);
+        let getBaseLoad__low = getBaseLoad__lowBtn.classList.contains('active');
+
+        let getBaseLoad__mediumBtn = document.getElementById(`baseLoad__medium__btn${selectedID}`);
+        let getBaseLoad__medium = getBaseLoad__mediumBtn.classList.contains('active');
+
+        let getBaseLoad__HighBtn = document.getElementById(`baseLoad__high__btn${selectedID}`);
+        let getBaseLoad__High = getBaseLoad__HighBtn.classList.contains('active');
+
+        if (getBaseLoad__low || getBaseLoad__medium || getBaseLoad__High) {
+          return true;
+        } else {
+          return false;
+        }
       }
-    } else if (stimulus === 'Load Increase') {
-      let getTypeOfIncreaseElement = document.getElementById(`loadIncrease__select_${selectedID}`);
-      let getTypeOfIncrease = getTypeOfIncreaseElement.value;
 
-      if (getTypeOfIncrease) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (stimulus === 'Constant Load') {
-      let getBaseLoad__lowBtn = document.getElementById(`baseLoad__low__btn${selectedID}`);
-      let getBaseLoad__low = getBaseLoad__lowBtn.classList.contains('active');
-
-      let getBaseLoad__mediumBtn = document.getElementById(`baseLoad__medium__btn${selectedID}`);
-      let getBaseLoad__medium = getBaseLoad__mediumBtn.classList.contains('active');
-
-      let getBaseLoad__HighBtn = document.getElementById(`baseLoad__high__btn${selectedID}`);
-      let getBaseLoad__High = getBaseLoad__HighBtn.classList.contains('active');
-
-      if (getBaseLoad__low || getBaseLoad__medium || getBaseLoad__High) {
-        return true;
-      } else {
-        return false;
-      }
     }
-
   }
-
   console.log('Mandatory fields are missing!');
   return false;
+
 };

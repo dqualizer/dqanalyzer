@@ -16,11 +16,7 @@ export const createDisabledGenerateBtn = () => {
 
   generateAndPush__btn.addEventListener('click', () => {
     console.log('event_handler');
-
-    // pushToQueue();
-    createToastNotification('Congrats! Your test is about to be executed.', 'success');
-
-    createAnalysisResultsView();
+    pushToQueue();
   });
 
   generateButtonContainer.appendChild(generateAndPush__btn);
@@ -28,28 +24,46 @@ export const createDisabledGenerateBtn = () => {
 };
 
 // eslint-disable-next-line no-undef
-// const pushToQueue = () => {
-//   console.log('pushing to queue');
-//   let rpa_definition = localStorage.getItem('runtimeQualityAnalysis');
-//   console.log(JSON.parse(rpa_definition));
-//   var myHeaders = new Headers();
-//   myHeaders.append('rqa_definition', JSON.parse(rpa_definition));
+const pushToQueue = () => {
 
-//   var requestOptions = {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: rpa_definition
+  let backend_url;
+  try {
+    backend_url = new URL('/api/rqa', window._env_.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL);
+  }
+  catch (e) {
+    console.log('error sis', e);
+    createToastNotification('Seems like there was an internal Error.', 'success');
+    return;
+  }
 
-//   };
 
-//   const backend_url = new URL('/api/rqa', window._env_.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL);
+  console.log('pushing to queue');
+  let rpa_definition = localStorage.getItem('runtimeQualityAnalysis');
+  console.log(JSON.parse(rpa_definition));
+  var myHeaders = new Headers();
+  myHeaders.append('rqa_definition', JSON.parse(rpa_definition));
 
-//   fetch(backend_url, requestOptions)
-//     .then((response) => response.text())
-//     .then((result) => console.log(result))
-//     .catch((error) => console.log('error', error));
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: rpa_definition
 
-//   console.log('pushed to queue');
-// };
+  };
+
+  fetch(backend_url, requestOptions)
+    .then((response) => {
+      response.text();
+      createToastNotification('Congrats! Your test started successfully!');
+      createAnalysisResultsView();
+    })
+    .then((result) => console.log(result))
+    .catch((error) => console.log('error', error));
+
+  console.log('pushed to queue');
+
+
+};
+
+

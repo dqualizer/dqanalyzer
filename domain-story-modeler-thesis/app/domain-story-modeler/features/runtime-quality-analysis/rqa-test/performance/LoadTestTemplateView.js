@@ -13,6 +13,7 @@ import {
   INFO_RESULT_METRICS
 } from '../../util/RuntimeAnalysisConstants';
 import { createDisabledGenerateBtn } from '../../util/generateTemplateObject';
+import * as werkstattModel from '../mapping/werkstatt.json';
 
 /**
  * Get root container element
@@ -128,7 +129,7 @@ const createAndAppendLoadTestInputFields = (selectedID) => {
 
   let artifactDescriptor = document.createElement('p');
   artifactDescriptor.classList.add('label-padding');
-  artifactDescriptor.innerText = 'Artifact';
+  artifactDescriptor.innerText = 'Domainstory Activity';
 
   let artifactValue = document.createElement('p');
   artifactValue.classList.add('label-padding');
@@ -136,6 +137,72 @@ const createAndAppendLoadTestInputFields = (selectedID) => {
 
   let artifactValueContainer = document.createElement('div');
   artifactValueContainer.classList.add('checkbox-child');
+
+  let mappedServiceDescriptor = document.createElement('p');
+  mappedServiceDescriptor.classList.add('label-padding');
+  mappedServiceDescriptor.innerText = 'Corresponding Service';
+
+
+  let mappedServiceSelect = document.createElement('select');
+  mappedServiceSelect.classList.add('label-padding');
+  mappedServiceSelect.id = `mappedServiceSelectElement_${selectedID}`;
+
+  let serviceOptions = [];
+  werkstattModel.objects.forEach((object) => {
+    let option = document.createElement('option');
+    option.value = object.dq_id;
+    option.text = object.name;
+    serviceOptions.push(option);
+  });
+
+  serviceOptions.forEach((option => {
+    mappedServiceSelect.appendChild(option);
+  }));
+
+  let mappedServiceValueContainer = document.createElement('div');
+  mappedServiceValueContainer.classList.add('checkbox-child');
+
+  let mappedActivityDescriptor = document.createElement('p');
+  mappedActivityDescriptor.classList.add('label-padding');
+  mappedActivityDescriptor.innerText = 'Corresponding Service Activity';
+
+
+  let mappedActivitySelect = document.createElement('select');
+  mappedActivitySelect.classList.add('label-padding');
+  mappedActivitySelect.id = `mappedActivitySelectElement_${selectedID}`;
+
+  let activityOptions = [];
+  let selectedService = werkstattModel.objects.find((service) => service.dq_id == mappedServiceSelect.options[mappedServiceSelect.selectedIndex].value);
+  selectedService.activities?.forEach((activity) => {
+    let option = document.createElement('option');
+    option.value = activity.dq_id;
+    option.text = activity.name;
+    activityOptions.push(option);
+  });
+
+  activityOptions.forEach((option => {
+    mappedActivitySelect.appendChild(option);
+  }));
+
+  mappedServiceSelect.addEventListener('change', () => {
+    selectedService = werkstattModel.objects.find((service) => service.dq_id == mappedServiceSelect.options[mappedServiceSelect.selectedIndex].value);
+    activityOptions = [];
+    mappedActivitySelect.innerHTML = '';
+    selectedService.activities?.forEach((activity) => {
+      let option = document.createElement('option');
+      option.value = activity.dq_id;
+      option.text = activity.name;
+      activityOptions.push(option);
+    });
+
+    activityOptions.forEach((option => {
+      mappedActivitySelect.appendChild(option);
+    }));
+  });
+
+  let mappedActivityValueContainer = document.createElement('div');
+  mappedActivityValueContainer.classList.add('checkbox-child');
+
 
   let stimulusLabelContainer = document.createElement('div');
   stimulusLabelContainer.classList.add('label-container');
@@ -870,6 +937,12 @@ const createAndAppendLoadTestInputFields = (selectedID) => {
   artifactValueContainer.appendChild(artifactDescriptor);
   artifactValueContainer.appendChild(artifactValue);
 
+  mappedServiceValueContainer.appendChild(mappedServiceDescriptor);
+  mappedServiceValueContainer.appendChild(mappedServiceSelect);
+
+  mappedActivityValueContainer.appendChild(mappedActivityDescriptor);
+  mappedActivityValueContainer.appendChild(mappedActivitySelect);
+
   stimulusResponseTimeChildContainer__label__container.appendChild(stimulusResponseTimeChildContainer__label);
   stimulusResponseTimeChildContainer__label__container.appendChild(stimulusResponseTime__info);
   stimulusResponseTimeChildContainer__label__container.appendChild(stimulusResponseTime__info_text);
@@ -890,6 +963,8 @@ const createAndAppendLoadTestInputFields = (selectedID) => {
   loadIncrease__child__container.appendChild(loadIncrease__select);
 
   loadTestTemplatInputContainer__left.appendChild(artifactValueContainer);
+  loadTestTemplatInputContainer__left.appendChild(mappedServiceValueContainer);
+  loadTestTemplatInputContainer__left.appendChild(mappedActivityValueContainer);
   loadTestTemplatInputContainer__left.appendChild(stimulusChildContainer);
   loadTestTemplatInputContainer__left.appendChild(accuracyChildContainer);
   loadTestTemplatInputContainer__left.appendChild(stimulusResponseTimeChildContainer__label__container);
