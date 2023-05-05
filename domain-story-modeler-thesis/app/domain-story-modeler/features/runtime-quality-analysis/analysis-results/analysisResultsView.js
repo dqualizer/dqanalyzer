@@ -119,11 +119,11 @@ export const createAnalysisResultsView = () => {
 
   let loadtests__stimulus__accuracy;
 
-  let loadtests__stimulus__highestLoad;
+  // let loadtests__stimulus__highestLoad;
 
   let loadtests__stimulus__responseMeasure;
 
-  let loadtests__stimulus__timeToLoadPeak;
+  // let loadtests__stimulus__timeToLoadPeak;
 
   let resultMetric__loadtests__responseTimes;
 
@@ -142,93 +142,88 @@ export const createAnalysisResultsView = () => {
   const results = localStorage.getItem('runtimeQualityAnalysis');
   const parsedResults = JSON.parse(results);
   const loadtests = parsedResults.runtime_quality_analysis.loadtests;
+  const loadtest = loadtests[0];
   if (parsedResults) {
 
-    /**
-         * Check loadtest results
-         */
+    // -------------LOADTEST START-------------
+
     if (loadtests) {
-      const loadtest = loadtests[0];
-      console.log(loadtest);
       if (loadtest) {
-        const stimulus = loadtest.stimulus || {};
+        if (loadtest.stimulus.load_profile === 'LOAD_PEAK') {
 
-        // const description = loadtest.description;
-        // const responseMeasure = loadtest.repsponse_measure;
-        // const resultMetrics = loadtesst.result_metrics;
-
-        // loadtests__artefact = loadtest.artefact;
-
-        loadtests__stimulus__accuracy = stimulus.accracy;
-        loadtests__stimulus__highestLoad == stimulus.highest_load;
-        loadtests__stimulus__loadProfile == stimulus.load_profile;
-        loadtests__stimulus__timeToLoadPeak = stimulus.time_to_highest_load;
-
-
-
-        for (const [ key, value ] of Object.entries(loadtest)) {
-          if (key === 'artifact') {
-            loadtests__stimulus__artifact = value;
-          }
-          if (key === 'stimulus') {
-            for (const [ innerKey, innerValue ] of Object.entries(loadtest.stimulus)) {
-              if (innerKey === 'Highest Load') {
-                loadtests__stimulus__highestLoad = innerValue;
-              }
-
-              if (innerKey === 'Load Profile') {
-                loadtests__stimulus__loadProfile = innerValue;
-              }
-
-              if (innerKey === 'Time to Highest Load') {
-                loadtests__stimulus__timeToLoadPeak = innerValue;
-              }
-
-              if (innerKey === 'Type of Increase') {
-                loadtests__stimulus__typeOfIncrease = innerValue;
-              }
-
-              if (innerKey === 'Base Load') {
-                loadtests__stimulus__baseLoad = innerValue;
-              }
-            }
-          }
-
-          if (key === 'environment') {
-            for (const [ innerKey, innerValue ] of Object.entries(loadtest.environment)) {
-              if (innerKey === 'Confidence') {
-                loadtests__stimulus__accuracy = innerValue;
-              }
-            }
-          }
-
-          if (key === 'responseMeasure') {
-            for (const [ _innerKey, innerValue ] of Object.entries(loadtest.responseMeasure)) {
-              loadtests__stimulus__responseMeasure = innerValue;
-            }
-          }
-
-          if (key === 'resultMetrics') {
-            for (const [ _innerKey, innerValue ] of Object.entries(loadtest.resultMetrics)) {
-              for (const [ metricKey, metricValue ] of Object.entries(innerValue)) {
-                if (metricValue === 'Response Times') {
-                  resultMetric__loadtests__responseTimes = metricValue;
-                }
-
-                if (metricValue === '90th Percentile') {
-                  resultMetric__loadtests__ninetyPercentile = metricValue;
-                }
-
-                if (metricKey === '95th Percentile') {
-                  resultMetric__loadtests__ninetyFivePercentile = metricValue;
-                }
-              }
-            }
-          }
+          summary__loadtests.innerHTML = `We executed the <strong>${loadtest.stimulus.load_profile}</strong> test for the artifact
+                  <strong>${loadtest.description}</strong> with the tool JMeter. \n The load peak was set to
+                  <strong>${loadtest.stimulus.highest_load}</strong>. The time until the peak is reached was set to 
+                  <strong>${loadtest.stimulus.time_to_highest_load}</strong>. You stated that the request's response times should be 
+                  <strong>${loadtest.response_measure.response_time}</strong> during the loadtest in order to be succesful.
+                  The test results should have an Confidence of <strong>${loadtest.stimulus.accuracy}</strong>.
+                  </br>
+                  </br>`;
+        } else if (loadtests__stimulus__loadProfile === 'Load Increase') {
+          summary__loadtests.innerHTML = `We executed the <u class="underline">${loadtests__stimulus__loadProfile}</u> test for the artifact
+                  <strong>${loadtests__stimulus__artifact}</strong> with the tool JMeter. \n You specified the type of increase to be
+                  <strong>${loadtests__stimulus__typeOfIncrease}</strong>. You stated that the request's response times should be 
+                  <strong>${loadtests__stimulus__responseMeasure}</strong> during the loadtest in order to be succesful.
+                  The test results should have an Confidence of <strong>${loadtests__stimulus__accuracy}</strong>.
+                  </br>
+                  </br>`;
+        } else {
+          summary__loadtests.innerHTML = `We executed the <strong>${loadtests__stimulus__loadProfile}</strong> test for the artifact
+                  <strong>${loadtests__stimulus__artifact}</strong> with the tool JMeter. \n You specified the base load to be
+                  <strong>${loadtests__stimulus__baseLoad}</strong>.
+                  You stated that the request's response times should be <strong>${loadtests__stimulus__responseMeasure}</strong> during the loadtest in order to be succesful.
+                  The test results should have an Confidence of <strong>${loadtests__stimulus__accuracy}</strong>.
+                  </br>
+                  </br>`;
         }
+
+        if (loadtest.stimulus.load_profile) {
+          summary__header__container.appendChild(summary__header__loadtests__text);
+          summary__loadtests__container.appendChild(summary__loadtests);
+          summary__loadtests__container.appendChild(breakEle);
+          summary__loadtests__container.appendChild(breakEle);
+
+          let summary__loadtests__results = document.createElement('span');
+          summary__loadtests__results.id = 'summary__loadtests__results';
+
+          if (resultMetric__loadtests__responseTimes && resultMetric__loadtests__ninetyPercentile) {
+            summary__loadtests__results.innerHTML = `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
+                  Requests that fall within the 90th Percentile had a satisfiable response time!
+                  Therefore, your system's specifications are satisfied!</u>`;
+          } else if (resultMetric__loadtests__responseTimes && resultMetric__loadtests__ninetyFivePercentile) {
+            summary__loadtests__results.innerHTML = `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
+                  Requests that fall within the 95th Percentile had a satisfiable response time!
+                  Therefore, your system's specifications are <strong>satisfied!</strong></u>`;
+          } else if (resultMetric__loadtests__responseTimes) {
+            console.log('This should be printed');
+            summary__loadtests__results.innerHTML =
+              `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
+                  Therefore, your system's specifications are <strong>satisfied!</strong></u>`;
+
+          } else if (resultMetric__loadtests__ninetyPercentile) {
+            summary__loadtests__results.innerHTML =
+              `<u class="underline"> Requests that fall within the 90th Percentile had a satisfiable response time!
+                  Therefore, your system's specifications are still <strong>satisfied!</strong></u>`;
+          } else if (resultMetric__loadtests__ninetyFivePercentile) {
+            summary__loadtests__results.innerHTML =
+              `<u class="underline"> Requests that fall within the 95th Percentile had a satisfiable response time!
+                  Therefore, your system's specifications are still <strong>satisfied!</strong></u>`;
+          }
+
+          summary__loadtests__container.appendChild(summary__loadtests__results);
+          resultsView__container.appendChild(summary__header__container);
+          resultsView__container.appendChild(summary__loadtests__container);
+
+          localStorage.removeItem('runtimeQualityAnalysis');
+        }
+
+
       }
     }
 
+    // -------------LOADTEST END-------------
+
+    // -------------RESILICENCE START-------------
     if (parsedResults.resiliencetest) {
       const resilienceTest = parsedResults.resiliencetest[0];
       if (resilienceTest) {
@@ -296,74 +291,10 @@ export const createAnalysisResultsView = () => {
     }
   }
 
+  // -------------RESILICENCE END-------------
 
-  if (loadtests__stimulus__loadProfile === 'Load Peak') {
-    summary__loadtests.innerHTML = `We executed the <strong>${loadtests__stimulus__loadProfile}</strong> test for the artifact
-            <strong>${loadtests__stimulus__artifact}</strong> with the tool JMeter. \n The load peak was set to
-            <strong>${loadtests__stimulus__highestLoad}</strong>. The time until the peak is reached was set to 
-            <strong>${loadtests__stimulus__timeToLoadPeak}</strong>. You stated that the request's response times should be 
-            <strong>${loadtests__stimulus__responseMeasure}</strong> during the loadtest in order to be succesful.
-            The test results should have an Confidence of <strong>${loadtests__stimulus__accuracy}</strong>.
-            </br>
-            </br>`;
 
-  } else if (loadtests__stimulus__loadProfile === 'Load Increase') {
-    summary__loadtests.innerHTML = `We executed the <u class="underline">${loadtests__stimulus__loadProfile}</u> test for the artifact
-            <strong>${loadtests__stimulus__artifact}</strong> with the tool JMeter. \n You specified the type of increase to be
-            <strong>${loadtests__stimulus__typeOfIncrease}</strong>. You stated that the request's response times should be 
-            <strong>${loadtests__stimulus__responseMeasure}</strong> during the loadtest in order to be succesful.
-            The test results should have an Confidence of <strong>${loadtests__stimulus__accuracy}</strong>.
-            </br>
-            </br>`;
-  } else {
-    summary__loadtests.innerHTML = `We executed the <strong>${loadtests__stimulus__loadProfile}</strong> test for the artifact
-            <strong>${loadtests__stimulus__artifact}</strong> with the tool JMeter. \n You specified the base load to be
-            <strong>${loadtests__stimulus__baseLoad}</strong>.
-            You stated that the request's response times should be <strong>${loadtests__stimulus__responseMeasure}</strong> during the loadtest in order to be succesful.
-            The test results should have an Confidence of <strong>${loadtests__stimulus__accuracy}</strong>.
-            </br>
-            </br>`;
-  }
 
-  if (loadtests__stimulus__loadProfile) {
-    summary__header__container.appendChild(summary__header__loadtests__text);
-    summary__loadtests__container.appendChild(summary__loadtests);
-    summary__loadtests__container.appendChild(breakEle);
-    summary__loadtests__container.appendChild(breakEle);
-
-    let summary__loadtests__results = document.createElement('span');
-    summary__loadtests__results.id = 'summary__loadtests__results';
-
-    if (resultMetric__loadtests__responseTimes && resultMetric__loadtests__ninetyPercentile) {
-      summary__loadtests__results.innerHTML = `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
-            Requests that fall within the 90th Percentile had a satisfiable response time!
-            Therefore, your system's specifications are satisfied!</u>`;
-    } else if (resultMetric__loadtests__responseTimes && resultMetric__loadtests__ninetyFivePercentile) {
-      summary__loadtests__results.innerHTML = `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
-            Requests that fall within the 95th Percentile had a satisfiable response time!
-            Therefore, your system's specifications are <strong>satisfied!</strong></u>`;
-    } else if (resultMetric__loadtests__responseTimes) {
-      console.log('This should be printed');
-      summary__loadtests__results.innerHTML =
-                `<u class="underline"> The calculated average response time of the load test was 2x faster than the specified threshold!
-            Therefore, your system's specifications are <strong>satisfied!</strong></u>`;
-
-    } else if (resultMetric__loadtests__ninetyPercentile) {
-      summary__loadtests__results.innerHTML =
-                `<u class="underline"> Requests that fall within the 90th Percentile had a satisfiable response time!
-            Therefore, your system's specifications are still <strong>satisfied!</strong></u>`;
-    } else if (resultMetric__loadtests__ninetyFivePercentile) {
-      summary__loadtests__results.innerHTML =
-                `<u class="underline"> Requests that fall within the 95th Percentile had a satisfiable response time!
-            Therefore, your system's specifications are still <strong>satisfied!</strong></u>`;
-    }
-
-    summary__loadtests__container.appendChild(summary__loadtests__results);
-    resultsView__container.appendChild(summary__header__container);
-    resultsView__container.appendChild(summary__loadtests__container);
-
-    localStorage.removeItem('runtimeQualityAnalysis');
-  }
 
   if (stimulus__resilience__type) {
     let summary__resilience__results = document.createElement('span');

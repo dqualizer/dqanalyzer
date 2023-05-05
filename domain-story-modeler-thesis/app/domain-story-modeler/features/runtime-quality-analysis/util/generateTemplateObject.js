@@ -17,7 +17,7 @@ export const createDisabledGenerateBtn = () => {
   generateAndPush__btn.addEventListener('click', () => {
     console.log('event_handler');
 
-    pushToQueue();
+    // pushToQueue();
     createToastNotification('Congrats! Your test is about to be executed.', 'success');
 
     createAnalysisResultsView();
@@ -28,28 +28,28 @@ export const createDisabledGenerateBtn = () => {
 };
 
 // eslint-disable-next-line no-undef
-const pushToQueue = () => {
-  console.log('pushing to queue');
-  let rpa_definition = localStorage.getItem('runtimeQualityAnalysis');
-  console.log(JSON.parse(rpa_definition));
-  var myHeaders = new Headers();
-  myHeaders.append('rqa_definition', JSON.parse(rpa_definition));
+// const pushToQueue = () => {
+//   console.log('pushing to queue');
+//   let rpa_definition = localStorage.getItem('runtimeQualityAnalysis');
+//   console.log(JSON.parse(rpa_definition));
+//   var myHeaders = new Headers();
+//   myHeaders.append('rqa_definition', JSON.parse(rpa_definition));
 
-  var requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: rpa_definition
+//   var requestOptions = {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: rpa_definition
 
-  };
+//   };
 
-  const backend_url = new URL('/api/rqa', window._env_.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL);
+//   const backend_url = new URL('/api/rqa', window._env_.VITE_BACKEND_URL || import.meta.env.VITE_BACKEND_URL);
 
-  fetch(backend_url, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+//   fetch(backend_url, requestOptions)
+//     .then((response) => response.text())
+//     .then((result) => console.log(result))
+//     .catch((error) => console.log('error', error));
 
-  console.log('pushed to queue');
-};
+//   console.log('pushed to queue');
+// };

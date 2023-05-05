@@ -1,0 +1,65 @@
+{
+    "version": 1.0,
+    "domain": "Autowerkstatt",
+    "subdomain": "Interne Systeme",
+    "context": "werkstattauftrag",
+    "actors": [
+        "Mitarbeiter",
+        "Payment Service"
+    ],
+    "server_info": [
+        {
+            "host": "http://127.0.0.1:9000",
+            "environment": "TEST"
+        }
+    ],
+    "services": [
+        {
+            "service_name": "Werkstattauftrag Service",
+            "type": "controller",
+            "activities": [
+                {
+                    "activity_id": 1,
+                    "name": "Auftrag lesen",
+                    "action": "öffnet",
+                    "entity": "Werkstattauftrag",
+                    "params": [
+                        {
+                            "auftragsnummer": 1
+                        }
+                    ],
+                    "endpoint": {
+                        "path": "/auftrag/{auftragsnummer}",
+                        "http_method": "GET"
+                    }
+                }
+            ]
+        }
+    ],
+    "entities": [
+        {
+            "entity_id": 1,
+            "entity_name": "Werkstattauftrag",
+            "value_objects": [
+                {
+                    "object_name": "auftragsnummer",
+                    "object_type": "int"
+                }
+            ],
+            "type": "model"
+        },
+        {
+            "entity_id": 2,
+            "entity_name": "Auftraggeber",
+            "type": "model"
+        },
+        {
+            "entity_id": 3,
+            "entity_name": "Auftragsposition"
+        },
+        {
+            "entity_id": 4,
+            "entity_name": "Auftragsstatus"
+        }
+    ]
+}

@@ -26,10 +26,14 @@ WORKDIR /usr/share/nginx/html
 COPY ./env.sh .
 COPY .env .
 
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+
 # Add bash
 RUN apk add --no-cache bash
 
 RUN chmod +x env.sh
 
 # Executing the Shell-Skript
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
+CMD ["entrypoint.sh"]

@@ -8,6 +8,7 @@ import Picker from 'vanilla-picker';
 // THESIS-START
 import { createResilienceTemplate, removeResilienceTemplateForNode } from '../runtime-quality-analysis/rqa-test/resilience/ResilienceTemplateView';
 import { createLoadTestTemplate } from '../runtime-quality-analysis/rqa-test/performance/LoadTestTemplateView';
+import { createMappingTemplate } from '../runtime-quality-analysis/rqa-test/mapping/MappingTemplateView';
 
 // THESIS-END
 
@@ -143,8 +144,9 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
       addInputFields(actions, element);
       addLoadTest(actions);
+      addMapper(actions);
 
-      // addMonitoring(actions);
+      addMonitoring(actions);
 
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
@@ -161,8 +163,9 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
       }
       addInputFields(actions, element);
       addLoadTest(actions);
+      addMapper(actions);
 
-      // addMonitoring(actions);´`
+      addMonitoring(actions);
 
       addConnectWithActivity(actions, startConnect);
       addTextAnnotation(actions);
@@ -198,6 +201,7 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
 
       addColorChange(actions);
       addLoadTest(actions);
+      addMapper(actions);
 
       assign(actions, {
         'delete': {
@@ -327,7 +331,23 @@ export default function DomainStoryContextPadProvider(injector, connect, transla
     });
   }
 
-  function _addMonitoring(actions) {
+  function addMapper(actions) {
+    assign(actions, {
+      'mapping': {
+        group: 'type',
+        className: 'icon-domain-story-mapping',
+        title: translate('Load Test'),
+        action: {
+          click: function(event, element) {
+            selectedID = element.id;
+            createMappingTemplate(selectedID);
+          }
+        }
+      }
+    });
+  }
+
+  function addMonitoring(actions) {
     assign(actions, {
       'monitoring': {
         group: 'type',

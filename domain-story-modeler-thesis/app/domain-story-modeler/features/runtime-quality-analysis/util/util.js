@@ -9,7 +9,8 @@ import $ from 'jquery';
  */
 export const getNodeName = (selectedID) => {
   let nodeName = $(`[data-element-id=${selectedID}]`).get(0);
-  return nodeName.children[0].textContent;
+  console.log(nodeName.children[0]);
+  return nodeName.children[0].children[1].textContent;
 };
 
 export const getNodeRectElementAndSetColor = (selectedID, specified, type) => {
