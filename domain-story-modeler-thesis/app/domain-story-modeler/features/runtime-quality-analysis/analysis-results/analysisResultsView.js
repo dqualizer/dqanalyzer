@@ -43,7 +43,26 @@ export const createAnalysisResultsView = () => {
     getResultsModal.style.display = 'none';
   });
 
-  results__btn__container.appendChild(results__btn);
+  let dashboard__btn__container = document.createElement('div');
+  dashboard__btn__container.id = 'results__btn__container';
+
+  dashboard__btn__container.appendChild(results__btn);
+
+
+
+  let dashboard__btn = document.createElement('button');
+  dashboard__btn.id = 'dahsboard-btn';
+  dashboard__btn.classList.add('btn');
+  dashboard__btn.classList.add('custom-button');
+  dashboard__btn.classList.add('btn-primary');
+  dashboard__btn.innerText = 'Open Cockpit';
+
+  dashboard__btn.addEventListener('click', () => {
+    window.open(window._env_.GRAFANA_RESULT_DASHBOARD, '_blank').focus();
+  });
+
+  results__btn__container.appendChild(dashboard__btn);
+
 
 
   /**
@@ -122,15 +141,30 @@ export const createAnalysisResultsView = () => {
      */
   const results = localStorage.getItem('runtimeQualityAnalysis');
   const parsedResults = JSON.parse(results);
-
+  const loadtests = parsedResults.runtime_quality_analysis.loadtests;
   if (parsedResults) {
 
     /**
          * Check loadtest results
          */
-    if (parsedResults.loadtest) {
-      const loadtest = parsedResults.loadtest[0];
+    if (loadtests) {
+      const loadtest = loadtests[0];
+      console.log(loadtest);
       if (loadtest) {
+        const stimulus = loadtest.stimulus || {};
+
+        // const description = loadtest.description;
+        // const responseMeasure = loadtest.repsponse_measure;
+        // const resultMetrics = loadtesst.result_metrics;
+
+        // loadtests__artefact = loadtest.artefact;
+
+        loadtests__stimulus__accuracy = stimulus.accracy;
+        loadtests__stimulus__highestLoad == stimulus.highest_load;
+        loadtests__stimulus__loadProfile == stimulus.load_profile;
+        loadtests__stimulus__timeToLoadPeak = stimulus.time_to_highest_load;
+
+
 
         for (const [ key, value ] of Object.entries(loadtest)) {
           if (key === 'artifact') {
@@ -411,6 +445,7 @@ export const createAnalysisResultsView = () => {
     results__modal__content.appendChild(results__close__btn);
     getResultsModal.appendChild(results__modal__content);
     getSummaryContainer.appendChild(results__btn__container);
+    getSummaryContainer.appendChild(dashboard__btn__container);
   } else {
     results__modal__content.appendChild(resultsView__container);
     results__modal__content.appendChild(results__close__btn);

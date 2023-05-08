@@ -45,9 +45,9 @@ export const createToastNotification = (message, type) => {
     const toastBase__container_success = $('#toastBase__container_success');
 
     notification__container.appendChild(toastBase__container);
-    toastBase__container_success.toast('show');
+    toastBase__container_success.addClass('show');
 
-    toastBase__container_success.on('hidden.bs.toast', function() {
+    toastBase__container_success.on('hidden.bs.toast', () => {
       toastBase__container_success.remove();
     });
   } else if (type === 'failure') {
@@ -91,7 +91,7 @@ export const createToastNotification = (message, type) => {
     notification__container.appendChild(toastBase__container);
     $('#toastBase__container_failure').toast('show');
 
-    $('#toastBase__container_failure').on('hidden.bs.toast', function() {
+    $('#toastBase__container_failure').on('hidden.bs.toast', () => {
       toastBase__container.remove();
     });
   }
@@ -142,7 +142,7 @@ export const createToastNotificationTemplate = (message, templateType) => {
   notification__container.appendChild(toastBase__container);
   $('#toastBase__container').toast('show');
 
-  $('#toastBase__container').on('hidden.bs.toast', function() {
+  $('#toastBase__container').on('hidden.bs.toast', () => {
     toastBase__container.remove();
   });
 

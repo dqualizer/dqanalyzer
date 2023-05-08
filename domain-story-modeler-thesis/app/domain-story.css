@@ -54,7 +54,6 @@ input {
 }
 
 #analysisResultsContainer {
-  width: 500px;
   height: 50px;
 }
 
@@ -142,7 +141,6 @@ input {
 }
 
 .runtime-quality-analysis-info-container {
-  width: 500px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
