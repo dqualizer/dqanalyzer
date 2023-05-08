@@ -10,3 +10,5 @@ services:
     environment:
     # Provide the Url of the dqanaylzer backend here
       - VITE_BACKEND_URL=
+    # Prove the Url of the Grafana Dashboard here
+    - GRAFANA_RESULT_DASHBOARD=  
