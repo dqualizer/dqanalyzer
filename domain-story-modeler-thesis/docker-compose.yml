@@ -8,4 +8,5 @@ services:
     ports:
       - "9080:80"
     environment:
-      - VITE_BACKEND_URL=PROVIDE_YOUR_BACKEND_URL
+    # Provide the Url of the dqanaylzer backend here
+      - VITE_BACKEND_URL=
