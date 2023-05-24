@@ -1,4 +1,4 @@
-FROM maven:3.8.5-openjdk-17-slim AS build
+FROM --platform=$BUILDPLATFORM maven:3.8.5-openjdk-17-slim AS build
 
 COPY .mvn .mvn
 COPY pom.xml .
@@ -6,7 +6,7 @@ COPY src src
 
 RUN mvn install -DskipTests && mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-FROM openjdk:17-jdk-slim
+FROM --platform=$BUILDPLATFORM openjdk:17-jdk-slim
 
 ARG DEPENDENCY=target/dependency
 
