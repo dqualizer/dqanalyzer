@@ -1,4 +1,4 @@
-FROM node:19-alpine AS base
+FROM --platform=$BUILDPLATFORM node:19-alpine AS base
 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
@@ -18,7 +18,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run bundle
 
-FROM nginx:1.22-alpine AS runtime
+FROM --platform=$BUILDPLATFORM nginx:1.22-alpine AS runtime 
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Adding the env-File and the Shell-Script
