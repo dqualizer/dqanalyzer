@@ -2,6 +2,7 @@ package dq.mock;
 
 import dq.mock.config.rabbit.Constant;
 import dq.mock.config.PathConfig;
+import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,12 +18,12 @@ import java.nio.file.Paths;
  * Loads the modeling from a local file and sends it to a message-queue
  */
 @Component
+@RequiredArgsConstructor
 public class ModelingProducer {
 
-    @Autowired
-    private RabbitTemplate template;
-    @Autowired
-    private PathConfig paths;
+
+    private final RabbitTemplate template;
+    private final PathConfig paths;
 
     /**
      * Method starts as soon as Spring is ready.
