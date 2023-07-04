@@ -1,0 +1,38 @@
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=rqa
+      - MONGO_INITDB_ROOT_USERNAME=dqualizer
+      - MONGO_INITDB_ROOT_PASSWORD=demo
+    ports:
+      - "27017:27017"
+
+  rabbit:
+    image: rabbitmq:3-management
+    user: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 2s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
+  dqanalyzer-backend:
+    container_name: dqanalyzer-backend
+    build:
+        context: ./modeler-mock
+        dockerfile: Dockerfile
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo
+    ports:
+      - "8070:8070"
+    depends_on:
+      mongo:
+        condition: service_started
+      rabbit:
+        condition: service_started
