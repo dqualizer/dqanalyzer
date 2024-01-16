@@ -1,4 +1,8 @@
+# DEPRECATED
+Please use the new implementation [dqanalyzer](https://github.com/dqualizer/dqanalyzer2)
+
 # dqanalyzer
+
 The dqanalyzer component enables domain experts to specify and perform RQA without profound knowledge of the underlying technical infrastructure and analysis tools, e.g., by annotating elements in domain stories.
 The dqanalyzer does not necessarily provide the functionality to model a domain story. It starts with a provided domain story and its responsibility is in annotating the domain story with tests.
 
